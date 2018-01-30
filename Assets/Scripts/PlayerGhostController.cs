@@ -11,6 +11,8 @@ public class PlayerGhostController : MonoBehaviour {
     public float MouseSmoothTime = 0.1f;
     public bool useMouseInput = false;
 
+    public GameObject BulletPrefab;
+
     private float goalPos = 0.5f; //Between 0 and 1
     private float curPos;
 
@@ -30,6 +32,12 @@ public class PlayerGhostController : MonoBehaviour {
             goalPos += Input.GetAxis("P2_Vertical");
             goalPos = Mathf.Clamp(goalPos, 0, 1);
         }
+
+        //Spawn bullets
+        if (Input.GetButtonDown("P2_Fire1"))
+        {
+            Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 90));
+        }
     }
 	
 	// Update is called once per frame
@@ -39,7 +47,6 @@ public class PlayerGhostController : MonoBehaviour {
         performMovement();
 
         //Update edge points
-
         from = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.01f));
         to = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.99f));
 

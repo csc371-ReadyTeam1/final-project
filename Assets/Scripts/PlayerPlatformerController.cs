@@ -11,6 +11,9 @@ public class PlayerPlatformerController : MonoBehaviour {
     public float jumpUpForce = 1.0f; //Additional force to apply while jump button held down
     public float friction = 0.83f;
 
+    //Force multiplier that damage throwback applies to the character
+    public float projectileForceScale = 10.0f;
+
     private Rigidbody2D body;
     private bool canJump = true;
 
@@ -34,6 +37,12 @@ public class PlayerPlatformerController : MonoBehaviour {
 
         canJump = false;
         body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+    }
+
+    public void ThrowBack(float hitScale)
+    {
+        body.AddForce(new Vector2(-1, 0.1f) * hitScale * projectileForceScale);
+        CameraController.instance.ShakeScreen(hitScale);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
