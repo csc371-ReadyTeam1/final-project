@@ -8,6 +8,7 @@ public class PlayerPlatformerController : MonoBehaviour {
     public float airMoveAccel = 50.0f;
     public float maxSpeed = 1.0f;
     public float jumpSpeed = 3.0f;
+    public float jumpUpForce = 1.0f; //Additional force to apply while jump button held down
     public float friction = 0.83f;
 
     private Rigidbody2D body;
@@ -49,7 +50,7 @@ public class PlayerPlatformerController : MonoBehaviour {
         if (horiz * curVX < maxSpeed)
         {
             float accel = canJump ? moveAccel : airMoveAccel;
-            float wishSpeed = horiz * accel * Time.deltaTime;
+            float wishSpeed = horiz * accel * Time.fixedDeltaTime;
 
             //Cap velocity so we don't go over the max speed
             wishSpeed = wishSpeed - Mathf.Max(wishSpeed + curVX - maxSpeed, 0);
@@ -72,6 +73,12 @@ public class PlayerPlatformerController : MonoBehaviour {
             }
             
             body.velocity = new Vector2(body.velocity.x - fricVel, body.velocity.y);
+        }
+        
+        //Jump a little bit higher the longer we hold the button
+        if (!canJump && body.velocity.y > 0 && Input.GetButton("Jump"))
+        {
+            body.AddForce(new Vector2(0, jumpUpForce));
         }
     }
 }

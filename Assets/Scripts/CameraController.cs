@@ -6,7 +6,6 @@ public class CameraController : MonoBehaviour {
 
     public GameObject target;
     public float SmoothTime = 1.0f;
-    public float MaxSmoothSpeed = 100.0f;
 
     private Vector3 offset;
 
@@ -15,14 +14,17 @@ public class CameraController : MonoBehaviour {
         offset = transform.position;
     }
 
+    //A better framerate-aware smooth lerp function.
+    // Different from Vector3.SmoothDamp() since that has stuttering issues
+    private Vector3 Damp(Vector3 a, Vector3 b, float smoothing, float dt)
+    {
+        return Vector3.Lerp(a, b, 1 - Mathf.Pow(smoothing, dt));
+    }
+
     // Update is called once per frame
     void LateUpdate()
-    {
+    {  
         Vector3 goalPos = new Vector3(target.transform.position.x, 0, 0) + offset;
-
-        Vector3 curVel = Vector3.zero;
-        Vector3 pos = Vector3.SmoothDamp(transform.position, goalPos, ref curVel,
-            SmoothTime, MaxSmoothSpeed, Time.deltaTime);
-        transform.position = pos;
+        transform.position = Damp(transform.position, goalPos, SmoothTime, Time.deltaTime);
     }
 }

@@ -444,7 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1582680972}
   SmoothTime: 0.05
-  MaxSmoothSpeed: 100
+  MaxSmoothSpeed: 10000
 --- !u!1001 &1461564046
 Prefab:
   m_ObjectHideFlags: 0
@@ -631,7 +631,8 @@ MonoBehaviour:
   moveAccel: 18.03
   airMoveAccel: 8.51
   maxSpeed: 1.6
-  jumpSpeed: 4
+  jumpSpeed: 2.89
+  jumpUpForce: 4.82
   friction: 5.48
 --- !u!1001 &1704562225
 Prefab:
