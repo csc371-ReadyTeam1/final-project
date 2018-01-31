@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
     {
         isPlaying = false;
 
-        winText.text = timeOut ? "SPIRIT WINS" : "BODY WINS";
+        winText.text = timeOut ? "SPIRIT WINS" : "PERSON WINS";
         winText.gameObject.SetActive(true);
     }
 	

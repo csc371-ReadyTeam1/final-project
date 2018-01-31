@@ -54,5 +54,7 @@ public class Checkpoint : MonoBehaviour {
         render.sprite = CapturedSprite;
         CaptureText.text = "CAPTURED!!!";
         isCaptured = true;
+
+        GameController.instance.Finish(false);
     }
 }
