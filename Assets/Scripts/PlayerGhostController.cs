@@ -21,6 +21,14 @@ public class PlayerGhostController : MonoBehaviour {
 		
 	}
 
+    //A better framerate-aware smooth lerp function.
+    // Different from Vector3.SmoothDamp() since that has stuttering issues
+    //#TODO: Function library?
+    private float Damp(float a, float b, float smoothing, float dt)
+    {
+        return Mathf.Lerp(a, b, 1 - Mathf.Pow(smoothing, dt));
+    }
+
     void performMovement()
     {
         if (useMouseInput)
@@ -51,8 +59,7 @@ public class PlayerGhostController : MonoBehaviour {
         to = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.99f));
 
         //Move the ghosty
-        float vel = 0;
-        curPos = Mathf.SmoothDamp(curPos, goalPos, ref vel, useMouseInput ? MouseSmoothTime : SmoothTime);
+        curPos = Damp(curPos, goalPos, useMouseInput ? MouseSmoothTime : SmoothTime, Time.deltaTime);
 
         transform.position = Vector2.Lerp(from, to, curPos);
 	}
