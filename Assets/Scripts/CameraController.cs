@@ -35,6 +35,12 @@ public class CameraController : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate()
     {
+        if (target == null)
+        {
+            target = GameController.instance.platformer;
+            return;
+        }
+
         //Calculate screen shake
         float amt = Mathf.Max(shakeScreenEndTime - Time.time, 0) * screenShakeScale;
         Vector3 shakeOffset = new Vector3(Random.Range(-amt, amt), Random.Range(-amt, amt), 0);

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPlatformerController : MonoBehaviour {
+public class PlayerPlatformerController : Pawn
+{
 
     public float moveAccel = 300.0f;
     public float airMoveAccel = 50.0f;
@@ -25,7 +26,7 @@ public class PlayerPlatformerController : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Controller.GetButtonDown("Jump"))
         {
             Jump();
         }
@@ -52,7 +53,7 @@ public class PlayerPlatformerController : MonoBehaviour {
 
     // Update is called once per frame
     void FixedUpdate () {
-        float horiz = Input.GetAxisRaw("Horizontal");
+        float horiz = Controller.GetAxisRaw("Horizontal");
 
         //Don't overspeed
         float curVX = body.velocity.x;
@@ -85,7 +86,7 @@ public class PlayerPlatformerController : MonoBehaviour {
         }
         
         //Jump a little bit higher the longer we hold the button
-        if (!canJump && body.velocity.y > 0 && Input.GetButton("Jump"))
+        if (!canJump && body.velocity.y > 0 && Controller.GetButton("Jump"))
         {
             body.AddForce(new Vector2(0, jumpUpForce));
         }

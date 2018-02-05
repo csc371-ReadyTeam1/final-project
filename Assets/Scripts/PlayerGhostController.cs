@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGhostController : MonoBehaviour {
+public class PlayerGhostController : Pawn
+{
 
     public Vector2 from;
     public Vector2 to;
@@ -37,12 +38,12 @@ public class PlayerGhostController : MonoBehaviour {
         }
         else
         {
-            goalPos += Input.GetAxis("P2_Vertical");
+            goalPos += Controller.GetAxis("Vertical");
             goalPos = Mathf.Clamp(goalPos, 0, 1);
         }
 
         //Spawn bullets
-        if (Input.GetButtonDown("P2_Fire1"))
+        if (Controller.GetButtonDown("Fire1"))
         {
             Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 90));
         }
