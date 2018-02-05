@@ -57,6 +57,7 @@ MonoBehaviour:
   SmoothTime: 0.0001
   MouseSmoothTime: 0.1
   useMouseInput: 0
+  fireRate: 0.4
   BulletPrefab: {fileID: 1433884226118000, guid: 5e791f207eed493428c07a08b85b205a,
     type: 2}
 --- !u!212 &212667479365158228
@@ -91,7 +92,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2113565335
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d5ea5c2829242f04a8f453ec6f29d634, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

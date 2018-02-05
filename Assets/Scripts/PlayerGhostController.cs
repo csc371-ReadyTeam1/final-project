@@ -12,10 +12,14 @@ public class PlayerGhostController : Pawn
     public float MouseSmoothTime = 0.1f;
     public bool useMouseInput = false;
 
+    public float fireRate = 0.25f;
+
     public GameObject BulletPrefab;
 
     private float goalPos = 0.5f; //Between 0 and 1
     private float curPos;
+
+    private float fireCooldown = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -42,10 +46,16 @@ public class PlayerGhostController : Pawn
             goalPos = Mathf.Clamp(goalPos, 0, 1);
         }
 
+        if (fireCooldown > 0)
+        {
+            fireCooldown -= Time.deltaTime;
+        }
+
         //Spawn bullets
-        if (Controller.GetButtonDown("Fire1"))
+        if (Controller.GetButtonDown("Fire1") && fireCooldown <= 0)
         {
             Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 90));
+            fireCooldown = fireRate;
         }
     }
 	

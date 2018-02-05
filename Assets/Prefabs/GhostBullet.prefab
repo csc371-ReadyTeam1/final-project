@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitScale: 0.3
-  speed: 3
+  speed: 5
   lifeTime: 5
 --- !u!212 &212796071179296768
 SpriteRenderer:
@@ -134,7 +134,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2113565335
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0b9f781919423ad44946d41367193f0d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
