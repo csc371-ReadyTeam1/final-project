@@ -14,8 +14,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Players
+  - WorldCollision
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2868700255
+    locked: 0
+  - name: Midground
+    uniqueID: 688113181
     locked: 0
   - name: Foreground
     uniqueID: 2181401961

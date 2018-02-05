@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212456284065086856}
   - component: {fileID: 61306424350819216}
   - component: {fileID: 50031044259586194}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerPlatformer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -104,8 +104,8 @@ MonoBehaviour:
   maxSpeed: 1.6
   jumpSpeed: 2.89
   jumpUpForce: 4.82
-  friction: 5.48
-  projectileForceScale: 1217.1
+  friction: 5.5
+  projectileForceScale: 621
 --- !u!212 &212456284065086856
 SpriteRenderer:
   m_ObjectHideFlags: 1
