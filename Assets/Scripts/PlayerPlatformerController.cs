@@ -16,17 +16,19 @@ public class PlayerPlatformerController : Pawn
     public float projectileForceScale = 10.0f;
 
     private Rigidbody2D body;
-    private bool canJump = true;
+    private BoxCollider2D bodyCollider;
+    private bool wishJump = false;
 
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
 
     }
 
     private void Update()
     {
-        if (Controller.GetButtonDown("Jump"))
+        if (IsOnGround() && Controller.GetButtonDown("Jump"))
         {
             Jump();
         }
@@ -34,10 +36,7 @@ public class PlayerPlatformerController : Pawn
 
     public void Jump()
     {
-        if (!canJump) return;
-
-        canJump = false;
-        body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+        wishJump = true;
     }
 
     public void ThrowBack(float hitScale)
@@ -46,20 +45,30 @@ public class PlayerPlatformerController : Pawn
         CameraController.instance.ShakeScreen(hitScale);
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public bool IsOnGround()
     {
-        canJump = true;
+        Vector3 bottom = transform.position - transform.up * (bodyCollider.size.y / 2 - bodyCollider.offset.y);
+        return Physics2D.Linecast(bottom, transform.position + transform.up * -0.2f, 1 << 9); //9 == World Collision
     }
 
     // Update is called once per frame
     void FixedUpdate () {
         float horiz = Controller.GetAxisRaw("Horizontal");
+        bool isOnGround = IsOnGround();
+
+        //Jump if we want to
+        if (isOnGround && wishJump)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+            isOnGround = false;
+            wishJump = false;
+        }
 
         //Don't overspeed
         float curVX = body.velocity.x;
         if (horiz * curVX < maxSpeed)
         {
-            float accel = canJump ? moveAccel : airMoveAccel;
+            float accel = isOnGround ? moveAccel : airMoveAccel;
             float wishSpeed = horiz * accel * Time.fixedDeltaTime;
 
             //Cap velocity so we don't go over the max speed
@@ -72,21 +81,21 @@ public class PlayerPlatformerController : Pawn
             body.velocity = new Vector2(Mathf.Sign(body.velocity.x) * maxSpeed, body.velocity.y);
 
         //Perform ground friction if we're on the ground
-        if (canJump) //#TODO: "IsOnGround" function
+        if (isOnGround)
         {
             float fricVel = Time.deltaTime * friction * Mathf.Sign(body.velocity.x);
 
             //If they're moving slow enough, just set their velocity to 0 immediately
-            if (Mathf.Abs(body.velocity.x) < fricVel)
+            if (Mathf.Abs(body.velocity.x) < Mathf.Abs(fricVel))
             {
-                fricVel = body.velocity.x * Mathf.Sign(body.velocity.x);
+                fricVel = Mathf.Abs(body.velocity.x) * Mathf.Sign(body.velocity.x);
             }
             
             body.velocity = new Vector2(body.velocity.x - fricVel, body.velocity.y);
         }
         
         //Jump a little bit higher the longer we hold the button
-        if (!canJump && body.velocity.y > 0 && Controller.GetButton("Jump"))
+        if (!isOnGround && body.velocity.y > 0 && Controller.GetButton("Jump"))
         {
             body.AddForce(new Vector2(0, jumpUpForce));
         }
