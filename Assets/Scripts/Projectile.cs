@@ -8,31 +8,42 @@ public class Projectile : MonoBehaviour {
     //Affects how far the player is pushed back
     public float hitScale = 1.0f;
 
+	// On third bullet, amount of time player is stunned for
+	public float stunTime = 3.0f;
+
     //How fast this projectile travels
     public float speed = 1.0f;
 
     //How long the bullet persists until it is automatically destroyed
     public float lifeTime = 1.0f;
 
-	// Use this for initialization
-	void Start () {
+	private Rigidbody2D body;
+
+	void Start() {
+		body = GetComponent<Rigidbody2D> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-        this.transform.position += this.transform.up * Time.deltaTime * speed;
+		this.transform.position += this.transform.up * Time.deltaTime * speed;
 
-        lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0)
-        {
-            Destroy(gameObject);
-        }
+		lifeTime -= Time.deltaTime;
+		if (lifeTime <= 0) {
+			Destroy (gameObject);
+		}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();
         if (pc == null) return;
+
+		//print ("HitNum: " + pc.hitNum);
+		if (pc.hitNum % 3 == 0 && pc.hitNum != 0) {
+			print ("STUN");
+			pc.Stun (stunTime);
+			Destroy (gameObject);
+		}
 
         pc.ThrowBack(hitScale);
         Destroy(gameObject);

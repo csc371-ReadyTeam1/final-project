@@ -1,11 +1,17 @@
 fileFormatVersion: 2
 guid: 3dfbd00a494b1954cb4009e37662eb51
-timeCreated: 1516778029
+timeCreated: 1517883075
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - move1Sound: {fileID: 8300000, guid: 050d48b0b7fb14c2ea707d307d1497f7, type: 3}
+  - move2Sound: {fileID: 8300000, guid: 050d48b0b7fb14c2ea707d307d1497f7, type: 3}
+  - hit1Sound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
+  - hit2Sound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
+  - jumpSound: {fileID: 8300000, guid: d0f037680ee81458e91980e3f604c940, type: 3}
+  - stunnedSound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
