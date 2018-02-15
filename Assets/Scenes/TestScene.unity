@@ -2236,10 +2236,13 @@ MonoBehaviour:
   useMouseInput: 0
   BulletPrefab: {fileID: 1433884226118000, guid: 5e791f207eed493428c07a08b85b205a,
     type: 2}
+  HomingPrefab: {fileID: 1508700441414584, guid: 19291b90089344585a728bc02995f4ae,
+    type: 2}
   ChargedProjectile: {fileID: 1368548908040598, guid: 2fa0a1f06c79b48468cef0428eefdba0,
     type: 2}
   fireSound: {fileID: 8300000, guid: d776c0b221b4947ff83d6118a2d71371, type: 3}
   reloadSound: {fileID: 8300000, guid: 4f4db2aaac1044e18a5199da3f0ed905, type: 3}
+  numOfMissiles: 5
 --- !u!1 &1738769765
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class PlayerGhostController : MonoBehaviour {
     public bool useMouseInput = false;
 
     public GameObject BulletPrefab;
+	public GameObject HomingPrefab;
 	public GameObject ChargedProjectile;
 
 	// SFX
@@ -27,6 +28,8 @@ public class PlayerGhostController : MonoBehaviour {
 	private int bulletIndex = 0;
 	private float coolTime = 3.0f;
 	private float timer = 0.0f;
+	private int weaponNum = 1;
+	public int numOfMissiles = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +52,17 @@ public class PlayerGhostController : MonoBehaviour {
 
 		for (int i = 0; i < numBullets; i++) {
 			chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+		}
+	}
+
+	// Simple weapon switching function. As we add more weapons just increase the num!
+	// For now,
+	// Weapon 1: Regular gun/bullet
+	// Weapon 2: Homing Missiles
+	private void switchWeapons() {
+		weaponNum++;
+		if (weaponNum > 2) {
+			weaponNum = 1;
 		}
 	}
 
@@ -79,16 +93,23 @@ public class PlayerGhostController : MonoBehaviour {
             goalPos = Mathf.Clamp(goalPos, 0, 1);
         }
 
+		if (Input.GetButtonDown ("P2_Fire2")) {
+			switchWeapons ();
+		}
+
         //Spawn bullets
 		if (Input.GetButtonDown ("P2_Fire1")) {
-			if (bulletIndex != numBullets) {
+			if (bulletIndex != numBullets && weaponNum == 1) {
 				SoundManager.instance.PlaySingle (fireSound);
 				Instantiate (BulletPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 
 				// Show bullet was unloaded in stock; remove BulletCountdown
-				chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color = greyedOut;
+				chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
 				bulletIndex++;
-			} else if (bulletIndex == numBullets) {
+			} else if (weaponNum == 2 && numOfMissiles > 0) { //Homing missiles
+				Instantiate (HomingPrefab, transform.position, Quaternion.Euler (0, 0, 90));
+				numOfMissiles--;
+			} else if (bulletIndex == numBullets) { // Cooldown. TODO: Do we want to let guns cooldown while using other weapons?
 				StartCoroutine (Cooldown ());
 			}
         }
