@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: 3abb28e5519678c469d9480da169e5a2
-timeCreated: 1516778017
+timeCreated: 1517883035
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - BulletPrefab: {instanceID: 0}
+  - ChargedProjectile: {instanceID: 0}
+  - fireSound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
+  - reloadSound: {fileID: 8300000, guid: 4f4db2aaac1044e18a5199da3f0ed905, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

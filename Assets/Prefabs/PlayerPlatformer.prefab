@@ -73,8 +73,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508655100602118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.142, y: 0.289, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.6479447, y: 1.5891297, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 224560169723115904}
   m_Father: {fileID: 0}
@@ -112,18 +112,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.04}
+  m_Offset: {x: -0.01, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.432, y: 0.432}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.15, y: 0.22}
+  m_Size: {x: 0.13, y: 0.39}
   m_EdgeRadius: 0
 --- !u!82 &82303910194728118
 AudioSource:
@@ -223,9 +223,18 @@ MonoBehaviour:
   doubleJumpSpeed: 2
   jumpUpForce: 4.82
   friction: 5.5
+  ShieldPrefab: {fileID: 1672525919300056, guid: 5dffe590c2f494a48b696128ab89481d,
+    type: 2}
+  move1Sound: {fileID: 8300000, guid: 050d48b0b7fb14c2ea707d307d1497f7, type: 3}
+  move2Sound: {fileID: 8300000, guid: 050d48b0b7fb14c2ea707d307d1497f7, type: 3}
+  hit1Sound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
+  hit2Sound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
+  jumpSound: {fileID: 8300000, guid: 20b8c50a5c6114389852509af8341327, type: 3}
+  stunnedSound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}
+  shieldSound: {fileID: 8300000, guid: c8258ff5fb0fb475382286434e434260, type: 3}
   comboResetTime: 1
   hitComboThrowScale: 100
-  maxHitCombo: 4
+  maxHitCombo: 3
   stunDuration: 1
   projectileForceScale: 621
   NumJumps: 2
@@ -337,7 +346,7 @@ SpriteRenderer:
   m_SortingLayerID: -2113565335
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300048, guid: 8bbf1bbfc938dcf4a908f8cbb448ef89, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7a260711a6404cfeb598eedede9261a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

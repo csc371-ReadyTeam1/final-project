@@ -14,19 +14,20 @@ public class Projectile : MonoBehaviour {
     //How long the bullet persists until it is automatically destroyed
     public float lifeTime = 1.0f;
 
-	// Use this for initialization
-	void Start () {
+	private Rigidbody2D body;
+
+	void Start() {
+		body = GetComponent<Rigidbody2D> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-        this.transform.position += this.transform.up * Time.deltaTime * speed;
+		this.transform.position += this.transform.up * Time.deltaTime * speed;
 
-        lifeTime -= Time.deltaTime;
-        if (lifeTime <= 0)
-        {
-            Destroy(gameObject);
-        }
+		lifeTime -= Time.deltaTime;
+		if (lifeTime <= 0) {
+			Destroy (gameObject);
+		}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

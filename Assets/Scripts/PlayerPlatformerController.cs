@@ -17,6 +17,17 @@ public class PlayerPlatformerController : Pawn
     public float jumpUpForce = 1.0f; //Additional force to apply while jump button held down
     public float friction = 0.83f;
 
+	public GameObject ShieldPrefab;
+
+	// SFX
+	public AudioClip move1Sound;
+	public AudioClip move2Sound;
+	public AudioClip hit1Sound;
+	public AudioClip hit2Sound;
+	public AudioClip jumpSound;
+	public AudioClip stunnedSound;
+	public AudioClip shieldSound;
+
     //How long it takes before the hit combo resets
     public float comboResetTime = 1.0f;
 
@@ -55,12 +66,19 @@ public class PlayerPlatformerController : Pawn
 
     //Jump info
     private int jumpCount = 0;
+	private bool shieldReady = true;
+    private Color ogColor;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         body = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
         audioSrc = GetComponent<AudioSource>();
+
+        //Store original sprite color
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        ogColor = renderer.color;
     }
 
     public bool IsStunned()
@@ -72,6 +90,7 @@ public class PlayerPlatformerController : Pawn
     {
         if (!IsStunned() && Controller.GetButtonDown("Jump"))
         {
+			SoundManager.instance.PlaySingle (jumpSound);
             Jump();
         }
 
@@ -89,6 +108,20 @@ public class PlayerPlatformerController : Pawn
             StunText.transform.rotation = Quaternion.Euler(0, 0, Mathf.Sin(Time.time * 13) * 5.0f);
             stunResetTime -= Time.deltaTime;
         }
+        else
+        {
+            //Reset sprite color when stun ends
+            SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+            renderer.color = ogColor;    
+        }
+
+		//Spawn shield
+		if (Controller.GetButtonDown ("Fire2")) {
+			if (shieldReady) {
+				SoundManager.instance.PlaySingle (shieldSound);
+				Instantiate (ShieldPrefab, transform.position, Quaternion.Euler (0, 0, 0));
+			}
+		}
     }
 
     public void Jump()
@@ -109,7 +142,7 @@ public class PlayerPlatformerController : Pawn
         //If they got hit tons of times in a row, temporarily stun
         if (!IsStunned() && hitCombo == maxHitCombo)
         {
-            stunResetTime = stunDuration;
+            Stun(stunDuration);
             audioSrc.pitch = 1;
             audioSrc.PlayOneShot(StunSound);
         }
@@ -120,10 +153,25 @@ public class PlayerPlatformerController : Pawn
         }
     }
 
+	public void Stun(float hitTime)
+	{
+        //Activate stun mode, delay by hitTime
+        stunResetTime = hitTime;
+
+        //Temporarily change sprite color
+		SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+		Color ogColor = renderer.color;
+		renderer.color = new Color(0.7f, 0.7f, 0.7f, 0.5f); // Set to opaque gray
+
+		SoundManager.instance.PlaySingle (stunnedSound);
+	}
+
     public bool IsOnGround()
     {
-        Vector3 bottom = transform.position - transform.up * (bodyCollider.size.y / 2 - bodyCollider.offset.y);
-        return Physics2D.Linecast(bottom, transform.position + transform.up * -0.2f, 1 << 9); //9 == World Collision
+        Vector3 bottom = transform.position - transform.up * (bodyCollider.size.y / 2 - bodyCollider.offset.y) * transform.localScale.y;
+        Debug.DrawLine(bottom, bottom + transform.up * -0.03f * transform.localScale.y, Color.green);
+
+        return Physics2D.Linecast(bottom, bottom + transform.up * -0.03f * transform.localScale.y, 1 << 9); //9 == World Collision
     }
 
     // Update is called once per frame

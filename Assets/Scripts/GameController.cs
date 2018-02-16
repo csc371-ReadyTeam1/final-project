@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour {
         {
             instance = this;
         }
+
+        gameObject.AddComponent<SoundManager>();
     }
 
     // Use this for initialization
