@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 212456284065086856}
   - component: {fileID: 61306424350819216}
   - component: {fileID: 50031044259586194}
+  - component: {fileID: 82303910194728118}
   m_Layer: 8
   m_Name: PlayerPlatformer
   m_TagString: Player
@@ -124,6 +125,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.22}
   m_EdgeRadius: 0
+--- !u!82 &82303910194728118
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508655100602118}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114507476511377060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +220,7 @@ MonoBehaviour:
   airMoveAccel: 8.51
   maxSpeed: 1.6
   jumpSpeed: 2.89
+  doubleJumpSpeed: 2
   jumpUpForce: 4.82
   friction: 5.5
   comboResetTime: 1
@@ -146,7 +228,11 @@ MonoBehaviour:
   maxHitCombo: 4
   stunDuration: 1
   projectileForceScale: 621
+  NumJumps: 2
+  WallJump: 1
   StunText: {fileID: 114625699994237252}
+  HitSound: {fileID: 8300000, guid: d08f47f153bf5b84b970ee758180b268, type: 3}
+  StunSound: {fileID: 8300000, guid: 2ca7e5e3ff5d0c04db8c157468be0a62, type: 3}
 --- !u!114 &114522957082308682
 MonoBehaviour:
   m_ObjectHideFlags: 1

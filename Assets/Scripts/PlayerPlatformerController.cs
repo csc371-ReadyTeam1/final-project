@@ -9,6 +9,11 @@ public class PlayerPlatformerController : Pawn
     public float airMoveAccel = 50.0f;
     public float maxSpeed = 1.0f;
     public float jumpSpeed = 3.0f;
+
+    /// <summary>
+    /// Speed to use for double jumps while in air
+    /// </summary>
+    public float doubleJumpSpeed = 1.5f; 
     public float jumpUpForce = 1.0f; //Additional force to apply while jump button held down
     public float friction = 0.83f;
 
@@ -24,21 +29,38 @@ public class PlayerPlatformerController : Pawn
     //Force multiplier that damage throwback applies to the character
     public float projectileForceScale = 10.0f;
 
+    /// <summary>
+    /// How many times the player can jump before touching the ground
+    /// </summary>
+    public int NumJumps = 2;
+
+    /// <summary>
+    /// Allow jumping against walls?
+    /// </summary>
+    public bool WallJump = true;
+
     public Text StunText;
+    public AudioClip HitSound;
+    public AudioClip StunSound;
 
     private Rigidbody2D body;
     private BoxCollider2D bodyCollider;
+    private AudioSource audioSrc;
     private bool wishJump = false;
 
+    //Hit combo/stunning
     private int hitCombo = 0;
     private float hitComboResetTime = 0;
     private float stunResetTime = 0;
+
+    //Jump info
+    private int jumpCount = 0;
 
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
-
+        audioSrc = GetComponent<AudioSource>();
     }
 
     public bool IsStunned()
@@ -48,7 +70,7 @@ public class PlayerPlatformerController : Pawn
 
     private void Update()
     {
-        if (!IsStunned() && IsOnGround() && Controller.GetButtonDown("Jump"))
+        if (!IsStunned() && Controller.GetButtonDown("Jump"))
         {
             Jump();
         }
@@ -81,14 +103,20 @@ public class PlayerPlatformerController : Pawn
         body.AddForce(new Vector2(-1, onGround ? 0.3f : 0.1f) * scale);
         CameraController.instance.ShakeScreen(hitScale + hitCombo * 0.1f);
 
-        hitCombo++;
-        Mathf.Min(hitCombo, maxHitCombo);
+        hitCombo = Mathf.Min(hitCombo + 1, maxHitCombo);
         hitComboResetTime = comboResetTime;
 
         //If they got hit tons of times in a row, temporarily stun
         if (!IsStunned() && hitCombo == maxHitCombo)
         {
             stunResetTime = stunDuration;
+            audioSrc.pitch = 1;
+            audioSrc.PlayOneShot(StunSound);
+        }
+        else
+        {
+            audioSrc.pitch = 1 + (hitCombo * 1.0f / maxHitCombo);
+            audioSrc.PlayOneShot(HitSound);
         }
     }
 
@@ -109,10 +137,21 @@ public class PlayerPlatformerController : Pawn
             horiz = 0;
         }
 
-        //Jump if we want to
-        if (isOnGround && wishJump)
+        //Reset jump count when they hit the ground
+        if (isOnGround && body.velocity.y <= 0)
         {
-            body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+            jumpCount = 0;
+        }
+
+        //Jump if we want to
+        bool canJump = isOnGround || jumpCount < NumJumps;
+        if (canJump && wishJump)
+        {
+            //Use a lower jump speed for airjumps
+            float jumpVelocity = isOnGround ? jumpSpeed : doubleJumpSpeed;
+
+            jumpCount++;
+            body.velocity = new Vector2(body.velocity.x, jumpVelocity);
             isOnGround = false;
             wishJump = false;
         }
