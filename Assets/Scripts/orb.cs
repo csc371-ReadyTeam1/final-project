@@ -27,11 +27,12 @@ public class orb : MonoBehaviour {
 				mDown = true;
 			} else if (mDown) {
 				anim.SetTrigger ("remove");
+				activateTrap = false;
 				mDown = false;
-
 			}
 
 		}
+			
 		Vector3 mousePosition = Input.mousePosition;
 		mousePosition.z = 1.0f;
 		transform.position = Camera.main.ScreenToWorldPoint (mousePosition);

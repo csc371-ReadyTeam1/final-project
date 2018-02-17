@@ -15,7 +15,7 @@ public class Hammer : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		Debug.Log (orb.activateTrap);
+		Debug.Log ("Activate trap is: " + orb.activateTrap);
 		if (orb.activateTrap) {
 			GetComponent<CircleCollider2D> ().radius = 0.5f;
 			gameObject.layer = 0;
@@ -23,9 +23,15 @@ public class Hammer : MonoBehaviour {
 			GetComponent<Collider2D> ().isTrigger = true;
 		}
 		orb.activateTrap = false;
+		Debug.Log ("Activate trap is: " + orb.activateTrap);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {
+		if (collision.gameObject.layer == 8)
+		{
+			Debug.Log ("TODO: Should ignore collision from bullet...");
+			//Physics.IgnoreCollision(GameObject.Find("GhostBullet").collider, GetComponent<Collider>());
+		}
 		PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController> ();
 
 		if (pc == null)

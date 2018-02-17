@@ -116,7 +116,6 @@ public class PlayerGhostController : MonoBehaviour {
         }
 
 		if (weaponNum == 3) {
-			//Debug.Log ("On weapon 3");
 			orb.onWeapon3 = true;
 		} else
 			orb.onWeapon3 = false;
