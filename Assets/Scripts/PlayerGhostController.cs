@@ -45,6 +45,7 @@ public class PlayerGhostController : MonoBehaviour {
 
 		// Saving color of first bullet for reference when reloading
 		ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
+
 	}
 
 	private void reloadBullets() {
@@ -61,7 +62,7 @@ public class PlayerGhostController : MonoBehaviour {
 	// Weapon 2: Homing Missiles
 	private void switchWeapons() {
 		weaponNum++;
-		if (weaponNum > 2) {
+		if (weaponNum > 3) {
 			weaponNum = 1;
 		}
 	}
@@ -111,8 +112,14 @@ public class PlayerGhostController : MonoBehaviour {
 				numOfMissiles--;
 			} else if (bulletIndex == numBullets) { // Cooldown. TODO: Do we want to let guns cooldown while using other weapons?
 				StartCoroutine (Cooldown ());
-			}
+			} 
         }
+
+		if (weaponNum == 3) {
+			//Debug.Log ("On weapon 3");
+			orb.onWeapon3 = true;
+		} else
+			orb.onWeapon3 = false;
     }
 	
 	// Update is called once per frame
