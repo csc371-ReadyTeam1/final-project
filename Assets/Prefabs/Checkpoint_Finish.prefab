@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 212742831038467320}
   - component: {fileID: 58964507048175324}
   m_Layer: 0
-  m_Name: Checkpoint
+  m_Name: Checkpoint_Finish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1621589197606176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.88, y: 0.16, z: 0}
+  m_LocalPosition: {x: 13.016, y: 0.239, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224613934996525974}
@@ -107,6 +107,8 @@ MonoBehaviour:
   CapturedSprite: {fileID: 21300032, guid: 42eba350d781bf14ba975d97923ae138, type: 3}
   CaptureText: {fileID: 114761339826176024}
   CaptureTime: 10
+  IsFinish: 1
+  ForcefieldToggle: {fileID: 0}
 --- !u!114 &114761339826176024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,7 +129,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 10a6f5954c1674e4b9282c20d5dcf61b, type: 3}
     m_FontSize: 56
     m_FontStyle: 0
     m_BestFit: 0
@@ -139,9 +141,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Checkpoint
-
-'
+  m_Text: CAPTURE TO WIN
 --- !u!114 &114961189561712650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,7 +211,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2113565335
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300030, guid: 42eba350d781bf14ba975d97923ae138, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

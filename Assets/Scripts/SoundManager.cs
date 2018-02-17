@@ -26,8 +26,7 @@ public class SoundManager : MonoBehaviour {
 
 	// For single sound effect audio clips
 	public void PlaySingle (AudioClip clip) {
-		sfxSource.clip = clip;
-		sfxSource.Play ();
+		sfxSource.PlayOneShot(clip);
 	}
 
 	// Randomization of sounds and relative pitch for repeated sfx

@@ -9,14 +9,25 @@ public class Checkpoint : MonoBehaviour {
     public Text CaptureText;
     public float CaptureTime = 1.0f;
 
+    /// <summary>
+    /// Whether or not this checkpoint is required for the platformer to win
+    /// </summary>
+    public bool IsFinish = false;
+
+    public AudioClip CaptureSound;
+
+    public GameObject ForcefieldToggle;
+
     float captureAmount;
     bool isBeingCaptured = false;
     bool isCaptured = false;
     SpriteRenderer render;
+    private AudioSource activateSrc;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         render = GetComponent<SpriteRenderer>();
+        activateSrc = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -55,6 +66,15 @@ public class Checkpoint : MonoBehaviour {
         CaptureText.text = "CAPTURED!!!";
         isCaptured = true;
 
-        GameController.instance.Finish(false);
+        activateSrc.Play();
+
+        if (IsFinish)
+        {
+            GameController.instance.Finish(false);
+        }
+        else
+        {
+            ForcefieldToggle.SetActive(true);
+        }
     }
 }
