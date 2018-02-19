@@ -50,6 +50,7 @@ public class PlayerGhostController : Pawn
 
 		// Saving color of first bullet for reference when reloading
 		ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
+
 	}
 
 	private void reloadBullets() {
@@ -66,7 +67,7 @@ public class PlayerGhostController : Pawn
 	// Weapon 2: Homing Missiles
 	private void switchWeapons() {
 		weaponNum++;
-		if (weaponNum > 2) {
+		if (weaponNum > 3) {
 			weaponNum = 1;
 		}
 	}
@@ -133,6 +134,11 @@ public class PlayerGhostController : Pawn
 			}
 //>>>>>>> 589b3040736f84074916e936e877bafe4b7b5711
         }
+
+		if (weaponNum == 3) {
+			orb.onWeapon3 = true;
+		} else
+			orb.onWeapon3 = false;
     }
 	
 	// Update is called once per frame
