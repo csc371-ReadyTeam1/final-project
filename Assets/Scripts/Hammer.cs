@@ -5,12 +5,15 @@ using UnityEngine;
 public class Hammer : MonoBehaviour {
 
 	public float hitScale = 1.0f;
+	public Transform bulletPrefab;
 
 	private Rigidbody2D rb;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+		Transform bullet = Instantiate(bulletPrefab) as Transform;
+		Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
 	}
 
@@ -30,7 +33,8 @@ public class Hammer : MonoBehaviour {
 		if (collision.gameObject.layer == 8)
 		{
 			Debug.Log ("TODO: Should ignore collision from bullet...");
-			//Physics.IgnoreCollision(GameObject.Find("GhostBullet").collider, GetComponent<Collider>());
+			//Transform bullet = Instantiate(bulletPrefab) as Transform;
+			//Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 		}
 		PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController> ();
 
