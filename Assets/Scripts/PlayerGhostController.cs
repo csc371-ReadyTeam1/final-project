@@ -35,6 +35,7 @@ public class PlayerGhostController : Pawn
 	public int numOfMissiles = 5;
 
     private float fireCooldown = 0;
+    private bool isCoolingDown = false;
 
 	// Use this for initialization
 	void Start () {
@@ -81,9 +82,13 @@ public class PlayerGhostController : Pawn
     }
 
 	IEnumerator Cooldown() {
-		yield return new WaitForSeconds(coolTime);
+        if (isCoolingDown) yield break;
 
-		reloadBullets ();
+        isCoolingDown = true;
+        yield return new WaitForSeconds(coolTime);
+        isCoolingDown = false;
+
+        reloadBullets ();
 		bulletIndex = 0;
 	}
 
@@ -126,11 +131,15 @@ public class PlayerGhostController : Pawn
 				// Show bullet was unloaded in stock; remove BulletCountdown
 				chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
 				bulletIndex++;
+
+                //Start reloading when it's the last shot
+                if (bulletIndex == numBullets)
+                {
+                    StartCoroutine(Cooldown());// Cooldown. TODO: Do we want to let guns cooldown while using other weapons?
+                }
 			} else if (weaponNum == 2 && numOfMissiles > 0) { //Homing missiles
 				Instantiate (HomingPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 				numOfMissiles--;
-			} else if (bulletIndex == numBullets) { // Cooldown. TODO: Do we want to let guns cooldown while using other weapons?
-				StartCoroutine (Cooldown ());
 			}
 //>>>>>>> 589b3040736f84074916e936e877bafe4b7b5711
         }

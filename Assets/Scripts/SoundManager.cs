@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour {
 		else if (instance != this)
 			Destroy (gameObject);
 
-		DontDestroyOnLoad (gameObject);
+		//DontDestroyOnLoad (gameObject);
 
         sfxSource = gameObject.AddComponent<AudioSource>();
         musicSource = gameObject.AddComponent<AudioSource>();
