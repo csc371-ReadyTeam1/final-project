@@ -19,6 +19,8 @@ public class PlayerPlatformerController : Pawn
 
 	public GameObject ShieldPrefab;
 
+	public GameObject ShieldFull;
+
 	// SFX
 	public AudioClip move1Sound;
 	public AudioClip move2Sound;
@@ -93,6 +95,12 @@ public class PlayerPlatformerController : Pawn
 			SoundManager.instance.PlaySingle (jumpSound);
             Jump();
         }
+
+		if (Input.GetKey ("v")) {
+			ShieldFull.SetActive (true);
+		} else {
+			ShieldFull.SetActive (false);
+		} 
 
         //Reset hit combo
         hitComboResetTime -= Time.deltaTime;
