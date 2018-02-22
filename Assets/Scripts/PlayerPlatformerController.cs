@@ -18,6 +18,7 @@ public class PlayerPlatformerController : Pawn
     public float friction = 0.83f;
 
 	public GameObject ShieldPrefab;
+	public GameObject ShieldFull;
 
 	// SFX
 	public AudioClip move1Sound;
@@ -184,6 +185,12 @@ public class PlayerPlatformerController : Pawn
         {
             horiz = 0;
         }
+		// Temp update to test full shield activating
+		if (Input.GetKey ("v")) {
+			ShieldFull.SetActive (true);
+		} else {
+			ShieldFull.SetActive (false);
+		} 
 
         //Reset jump count when they hit the ground
         if (isOnGround && body.velocity.y <= 0)
