@@ -9,6 +9,7 @@ public class PlayerGhostController : Pawn
     public Vector2 to;
 
     public float SmoothTime = 0.1f;
+    public float MoveSpeed = 1.0f;
     public float MouseSmoothTime = 0.1f;
     public bool useMouseInput = false;
 
@@ -21,6 +22,7 @@ public class PlayerGhostController : Pawn
 	// SFX
 	public AudioClip fireSound;
 	public AudioClip reloadSound;
+    public AudioClip bodySwitchSound;
 
 	private GameObject[] chargedBullets;
 	private Color ogColor;
@@ -37,6 +39,11 @@ public class PlayerGhostController : Pawn
     private float fireCooldown = 0;
     private bool isCoolingDown = false;
 
+    //When the human is stunned, the ghost is able to 'take over' them
+    private bool isTakingOver = false;
+    private Vector2 altGoalPos;
+    private Vector2 altCurPos;
+
 	// Use this for initialization
 	void Start () {
 		chargedBullets = new GameObject[numBullets];
@@ -52,9 +59,18 @@ public class PlayerGhostController : Pawn
 		// Saving color of first bullet for reference when reloading
 		ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
 
+        //Hook into when the human player is stunned (letting the ghost take over)
+        GameController.instance.OnHumanStunned += Instance_OnHumanStunned;
 	}
 
-	private void reloadBullets() {
+    private void Instance_OnHumanStunned()
+    {
+        isTakingOver = true;
+        altGoalPos = Camera.main.WorldToViewportPoint(transform.position);
+        altCurPos = altGoalPos;
+    }
+
+    private void reloadBullets() {
 		SoundManager.instance.PlaySingle (reloadSound);
 
 		for (int i = 0; i < numBullets; i++) {
@@ -81,6 +97,12 @@ public class PlayerGhostController : Pawn
         return Mathf.Lerp(a, b, 1 - Mathf.Pow(smoothing, dt));
     }
 
+    private Vector2 Damp(Vector2 a, Vector2 b, float smoothing, float dt)
+    {
+        return new Vector2(Damp(a.x, b.x, smoothing, dt),
+            Damp(a.y, b.y, smoothing, dt));
+    }
+
 	IEnumerator Cooldown() {
         if (isCoolingDown) yield break;
 
@@ -94,31 +116,24 @@ public class PlayerGhostController : Pawn
 
     void performMovement()
     {
+        //Update edge points
+        from = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.01f));
+        to = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.99f));
+
         if (useMouseInput)
         {
             goalPos = Camera.main.ScreenToViewportPoint(Input.mousePosition).y;
         }
         else
         {
-            goalPos += Controller.GetAxis("Vertical");
+            goalPos += Controller.GetAxisRaw("Vertical") * MoveSpeed;
             goalPos = Mathf.Clamp(goalPos, 0, 1);
         }
 
-//<<<<<<< HEAD
-/*
-        if (fireCooldown > 0)
-        {
-            fireCooldown -= Time.deltaTime;
-        }
+        //Move the relative position
+        curPos = Damp(curPos, goalPos, useMouseInput ? MouseSmoothTime : SmoothTime, Time.deltaTime);
 
-        //Spawn bullets
-        if (Controller.GetButtonDown("Fire1") && fireCooldown <= 0)
-        {
-            Instantiate(BulletPrefab, transform.position, Quaternion.Euler(0, 0, 90));
-            fireCooldown = fireRate;
- */
-//=======
-		if (Controller.GetButtonDown ("Fire2")) {
+        if (Controller.GetButtonDown ("Fire2")) {
 			switchWeapons ();
 		}
 
@@ -141,7 +156,6 @@ public class PlayerGhostController : Pawn
 				Instantiate (HomingPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 				numOfMissiles--;
 			}
-//>>>>>>> 589b3040736f84074916e936e877bafe4b7b5711
         }
 
 		if (weaponNum == 3) {
@@ -149,20 +163,58 @@ public class PlayerGhostController : Pawn
 		} else
 			orb.onWeapon3 = false;
     }
+    
+    //The second movement mode of the ghost, when they are able to take over the human
+    //This allows 2D movement across the screen
+    void performAltMovement()
+    {
+        altGoalPos.x += Controller.GetAxisRaw("Horizontal") * MoveSpeed;
+        altGoalPos.y += Controller.GetAxisRaw("Vertical") * MoveSpeed;
+
+        altGoalPos.x = Mathf.Clamp01(altGoalPos.x);
+        altGoalPos.y = Mathf.Clamp01(altGoalPos.y);
+
+        //Move the relative position
+        altCurPos = Damp(altCurPos, altGoalPos, SmoothTime, Time.deltaTime);
+    }
 	
 	// Update is called once per frame
 	void LateUpdate () {
-
+        if (Controller == null) return;
         //Update goal pos
-        performMovement();
+        if (GameController.instance.IsHumanStunned())
+        {
+            performAltMovement();
+        }
+        else
+        {
+            performMovement();
+        }
 
-        //Update edge points
-        from = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.01f));
-        to = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.99f));
 
-        //Move the ghosty
-        curPos = Damp(curPos, goalPos, useMouseInput ? MouseSmoothTime : SmoothTime, Time.deltaTime);
+        
 
-        transform.position = Vector2.Lerp(from, to, curPos);
-	}
+        Vector2 normalPos = Vector2.Lerp(from, to, curPos);
+        Vector2 altPos = Camera.main.ViewportToWorldPoint(altGoalPos);
+        Vector2 actualPos = GameController.instance.IsHumanStunned() ? altPos : normalPos;
+
+
+
+
+        //Actually set the world position of the ghost
+        transform.position = actualPos;
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (Controller == null) return;
+
+        var ply = coll.gameObject.GetComponent<PlayerPlatformerController>();
+        if (ply != null && ply.IsStunned())
+        {
+            GameController.instance.SwitchPlayers();
+            ply.ResetStun(); //Reset the stun immediately
+            SoundManager.instance.PlaySingle(bodySwitchSound, 0.5f);
+        }
+    }
 }

@@ -235,7 +235,7 @@ MonoBehaviour:
   comboResetTime: 1
   hitComboThrowScale: 100
   maxHitCombo: 3
-  stunDuration: 1
+  stunDuration: 5
   projectileForceScale: 621
   NumJumps: 2
   WallJump: 1

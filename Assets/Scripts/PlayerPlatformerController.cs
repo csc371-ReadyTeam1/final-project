@@ -88,6 +88,8 @@ public class PlayerPlatformerController : Pawn
 
     private void Update()
     {
+        if (Controller == null) return;
+
         if (!IsStunned() && Controller.GetButtonDown("Jump"))
         {
 			SoundManager.instance.PlaySingle (jumpSound);
@@ -127,6 +129,11 @@ public class PlayerPlatformerController : Pawn
     public void Jump()
     {
         wishJump = true;
+    }
+
+    public void ResetStun()
+    {
+        stunResetTime = 0;
     }
 
     public void ThrowBack(float hitScale)
@@ -176,6 +183,7 @@ public class PlayerPlatformerController : Pawn
 
     // Update is called once per frame
     void FixedUpdate () {
+        if (Controller == null) { return; }
         float horiz = Controller.GetAxisRaw("Horizontal");
         bool isOnGround = IsOnGround();
 

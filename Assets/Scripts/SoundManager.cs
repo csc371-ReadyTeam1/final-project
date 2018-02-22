@@ -25,7 +25,8 @@ public class SoundManager : MonoBehaviour {
 	}
 
 	// For single sound effect audio clips
-	public void PlaySingle (AudioClip clip) {
+	public void PlaySingle (AudioClip clip, float pitch = 1.0f) {
+        sfxSource.pitch = pitch;
 		sfxSource.PlayOneShot(clip);
 	}
 
