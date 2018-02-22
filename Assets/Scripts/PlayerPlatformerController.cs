@@ -188,6 +188,7 @@ public class PlayerPlatformerController : Pawn
 		// Temp update to test full shield activating
 		if (Input.GetKey ("v")) {
 			ShieldFull.SetActive (true);
+			//Debug.Log ("pressing V key");
 		} else {
 			ShieldFull.SetActive (false);
 		} 

@@ -311,7 +311,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508655100602118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e8f4067ca76444458b6d383f5580212, type: 3}
   m_Name: 
@@ -505,7 +505,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -567928832
+  randomSeed: 305351913
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3938,7 +3938,7 @@ SpriteRenderer:
   m_SortingLayerID: -2113565335
   m_SortingLayer: 3
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 29cc0002c821d4328a1eb60717190d51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01ca6919d64244b23bf2ca95c1cb0076, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
