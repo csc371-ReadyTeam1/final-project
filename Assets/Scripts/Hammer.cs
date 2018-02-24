@@ -5,13 +5,16 @@ using UnityEngine;
 public class Hammer : MonoBehaviour {
 
 	public float hitScale = 1.0f;
+	public float stunTime = 0.5f;
 
 	private Rigidbody2D rb;
+	private CircleCollider2D cc;
+	private bool activate = true;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
-
+		cc = GetComponent<CircleCollider2D> ();
 	}
 
 	void OnMouseDown() {
@@ -27,18 +30,20 @@ public class Hammer : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision) {
-		if (collision.gameObject.layer == 8)
-		{
-			Debug.Log ("TODO: Should ignore collision from bullet...");
-			//Physics.IgnoreCollision(GameObject.Find("GhostBullet").collider, GetComponent<Collider>());
+		Projectile tnt = collision.gameObject.GetComponent<Projectile>();
+		if (tnt != null && activate) {
+			tnt.gameObject.SetActive (false);
+			//rb.gravityScale = 1;
+			rb.isKinematic = false;
+			cc.isTrigger = true;
 		}
 		PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController> ();
-
-		if (pc == null)
-			return;
-
-		GetComponent<Collider2D> ().isTrigger = false;
-		pc.ThrowBack (hitScale);
+		if (pc != null) {
+			GetComponent<Collider2D> ().isTrigger = false;
+			pc.Stun (stunTime);
+			pc.ThrowBack (hitScale);
+			activate = false;
+		}
 	}
 		
 }
