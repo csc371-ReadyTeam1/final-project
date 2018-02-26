@@ -6,8 +6,12 @@ public class TNT : MonoBehaviour {
 
 	private Rigidbody2D rb2d;
 	private CircleCollider2D cc2d;
-	public float hitScale = 2.0f;
-	Animator anim;
+	public float hitScale = 10.0f;
+	public Animator anim;
+	public float stunTime = 0.5f;
+
+	private bool isActive = false;
+	private float initialTime = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -18,32 +22,33 @@ public class TNT : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		if (!isActive) {
+			initialTime = Time.time;
+		} else {
+			if (Time.time - initialTime > 0.9f) {
+				gameObject.SetActive(false);
+			}
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == 8)
-		{
-			Debug.Log ("TODO: Should ignore collision from bullet...");
-			//Physics.IgnoreCollision(GameObject.Find("GhostBullet").collider, GetComponent<Collider>());
+		Projectile tnt = collision.gameObject.GetComponent<Projectile>();
+		if (tnt != null) {
+			anim.SetTrigger ("explode");
+
+			cc2d.radius = 0.5f;
+
+			//gameObject.layer = 0;
+			isActive = true;
+			tnt.gameObject.SetActive (false);
+			cc2d.isTrigger = true;
 		}
 		PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController> ();
-		if (pc == null)
-			return;
-		anim.SetTrigger ("explode");
-		pc.ThrowBack (hitScale);
-	}
-
-	void OnMouseDown() {
-		Debug.Log ("Activate trap is: " + orb.activateTrap);
-		if (orb.activateTrap) {
-			gameObject.layer = 0;
-			GetComponent<Collider2D> ().isTrigger = true;
-			cc2d.radius = 0.5f;
-			rb2d.gravityScale = 1;
+		if (pc != null) {
+			
+			pc.Stun (stunTime);
+			pc.ThrowBack (hitScale);
 		}
-		orb.activateTrap = false;
-		Debug.Log ("Activate trap is: " + orb.activateTrap);
 	}
 }
