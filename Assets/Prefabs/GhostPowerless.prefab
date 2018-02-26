@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4944044452465688}
   - component: {fileID: 114940202445280338}
   - component: {fileID: 212538694263409118}
+  - component: {fileID: 114547430820057706}
   m_Layer: 0
   m_Name: GhostPowerless
   m_TagString: Untagged
@@ -36,11 +37,24 @@ Transform:
   m_GameObject: {fileID: 1980521263501286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.994832, y: 0.6005266, z: 0.19677679}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4827039, y: 0.4827039, z: 0.4827039}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114547430820057706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980521263501286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9c96035bd2a1d4a8eb4cb6e699fcce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nametagPrefab: {fileID: 1250257019653078, guid: 8d853ed772b250f47ab29984ba1a2383,
+    type: 2}
 --- !u!114 &114940202445280338
 MonoBehaviour:
   m_ObjectHideFlags: 1

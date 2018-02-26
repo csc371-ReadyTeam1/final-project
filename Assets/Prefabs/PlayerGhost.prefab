@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114238325137851612}
   - component: {fileID: 58167447434735066}
   - component: {fileID: 50517661844882036}
+  - component: {fileID: 114599956536906920}
   m_Layer: 8
   m_Name: PlayerGhost
   m_TagString: Ghost
@@ -105,6 +106,19 @@ MonoBehaviour:
   reloadSound: {fileID: 8300000, guid: 4f4db2aaac1044e18a5199da3f0ed905, type: 3}
   bodySwitchSound: {fileID: 8300000, guid: 2ca7e5e3ff5d0c04db8c157468be0a62, type: 3}
   numOfMissiles: 5
+--- !u!114 &114599956536906920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832471323728126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9c96035bd2a1d4a8eb4cb6e699fcce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nametagPrefab: {fileID: 1250257019653078, guid: 8d853ed772b250f47ab29984ba1a2383,
+    type: 2}
 --- !u!212 &212667479365158228
 SpriteRenderer:
   m_ObjectHideFlags: 1
