@@ -82,6 +82,16 @@ public class PlayerPlatformerController : Pawn
         ogColor = renderer.color;
     }
 
+    /// <summary>
+    /// When a player possesses this pawn, we want to set the color of the game object to match their color
+    /// </summary>
+    public override void OnPossessed()
+    {
+        NametagCreator nametag = GetComponent<NametagCreator>();
+        nametag.SetText(Controller.Name);
+        nametag.SetColor(Controller.PlayerColor);
+    }
+
     public bool IsStunned()
     {
         return stunResetTime > 0;

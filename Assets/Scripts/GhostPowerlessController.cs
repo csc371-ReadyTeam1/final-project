@@ -16,23 +16,41 @@ public class GhostPowerlessController : Pawn {
     Vector2 goalPos;
     Vector2 startPos;
 
+    private SpriteRenderer sprite;
+    private NametagCreator nametag;
+
     private ButtonState prevState = ButtonState.CENTER;
 
 	// Use this for initialization
 	void Start () {
-        goalPos = GameController.instance.platformer.transform.position;
-        startPos = transform.position;
+        goalPos = Vector2.zero;
+        startPos = transform.localPosition;
+
+        
     }
 
     void AddProgress()
     {
         completedPerc += stepSize;
-        transform.position = Vector2.Lerp(startPos, goalPos, completedPerc);
+        transform.localPosition = Vector2.Lerp(startPos, goalPos, completedPerc);
 
         if (completedPerc >= 1.0f)
         {
             GameController.instance.WinMinigame(Controller);
         }
+    }
+
+    /// <summary>
+    /// When a player possesses this pawn, we want to set the color of the game object to match their color
+    /// </summary>
+    public override void OnPossessed()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.color = Controller.PlayerColor;
+
+        nametag = GetComponent<NametagCreator>();
+        nametag.SetText(Controller.Name);
+        nametag.SetColor(Controller.PlayerColor);
     }
 
     private ButtonState GetButtonState()
@@ -44,7 +62,11 @@ public class GhostPowerlessController : Pawn {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        //Don't allow input if we aren't in minigame mode
+        if (GameController.instance.State != GameState.MINIGAME)
+            return;
 
         //Add progress by pressing left right repeatedly
         //To make progress, every left must be matched by a right

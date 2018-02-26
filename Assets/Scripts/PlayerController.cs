@@ -9,7 +9,23 @@ using UnityEngine;
 //(Such as switching between the ghost and platformer)
 public class PlayerController : MonoBehaviour {
 
+    /// <summary>
+    /// Retrieves the pawn this player controller is currently possessing. 
+    /// This returns the Pawn MonoBehaviour, but the gameobject can be accessed via pawn.gameObject
+    /// </summary>
     public Pawn ControlledPawn { get; private set; }
+
+    /// <summary>
+    /// Retrieves the name of this player. Usually will just be "Player 1" or "Player 2", 
+    /// but allows support for players entering in custom names if we wanted that.
+    /// </summary>
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Unique identifying color for this player. 
+    /// Will be shown on pawns they possessed.
+    /// </summary>
+    public Color PlayerColor { get; set; }
 
     //Which 'input' this player is getting input from
     public int InputIdx { get; private set; }

@@ -40,7 +40,6 @@ public class PlayerGhostController : Pawn
     private bool isCoolingDown = false;
 
     //When the human is stunned, the ghost is able to 'take over' them
-    private bool isTakingOver = false;
     private Vector2 altGoalPos;
     private Vector2 altCurPos;
 
@@ -63,9 +62,21 @@ public class PlayerGhostController : Pawn
         GameController.instance.OnHumanStunned += Instance_OnHumanStunned;
 	}
 
+    /// <summary>
+    /// When a player possesses this pawn, we want to set the color of the game object to match their color
+    /// </summary>
+    public override void OnPossessed()
+    {
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        sprite.color = Controller.PlayerColor;
+
+        NametagCreator nametag = GetComponent<NametagCreator>();
+        nametag.SetText(Controller.Name);
+        nametag.SetColor(Controller.PlayerColor);
+    }
+
     private void Instance_OnHumanStunned()
     {
-        isTakingOver = true;
         altGoalPos = Camera.main.WorldToViewportPoint(transform.position);
         altCurPos = altGoalPos;
     }
