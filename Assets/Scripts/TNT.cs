@@ -6,6 +6,8 @@ public class TNT : MonoBehaviour {
 
 	private Rigidbody2D rb2d;
 	private CircleCollider2D cc2d;
+
+	public AudioClip explosionSound;
 	public float hitScale = 10.0f;
 	public Animator anim;
 	public float stunTime = 0.5f;
@@ -36,7 +38,7 @@ public class TNT : MonoBehaviour {
 		Projectile tnt = collision.gameObject.GetComponent<Projectile>();
 		if (tnt != null) {
 			anim.SetTrigger ("explode");
-
+			SoundManager.instance.PlaySingle (explosionSound);
 			cc2d.radius = 0.5f;
 
 			//gameObject.layer = 0;
