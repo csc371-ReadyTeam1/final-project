@@ -9,6 +9,8 @@ using UnityEngine;
 //(Such as switching between the ghost and platformer)
 public class PlayerController : MonoBehaviour {
 
+    
+
     /// <summary>
     /// Retrieves the pawn this player controller is currently possessing. 
     /// This returns the Pawn MonoBehaviour, but the gameobject can be accessed via pawn.gameObject

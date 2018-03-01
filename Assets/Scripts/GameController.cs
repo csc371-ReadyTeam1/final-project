@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour {
 
     public Text timerText;
     public Text winText;
+    public Text player1Score;
+    public Text player2Score;
     public float timeLimit = 60.0f; //Deprecated?
     public float countdownTime = 3.0f;
 
