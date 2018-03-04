@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
 public class PlayerGhostController : Pawn
 {
@@ -14,6 +16,9 @@ public class PlayerGhostController : Pawn
     public bool useMouseInput = false;
 
     public float fireRate = 0.25f;
+
+	private GameObject gunImage;
+	private GameObject missileImage;
 
     public GameObject BulletPrefab;
 	public GameObject HomingPrefab;
@@ -45,8 +50,10 @@ public class PlayerGhostController : Pawn
 
 	// Use this for initialization
 	void Start () {
+		gunImage = GameObject.Find ("gunImage");
+		missileImage = GameObject.Find ("missileImage");
+		missileImage.SetActive (false);
 		chargedBullets = new GameObject[numBullets];
-
 		Vector3 bulletPos = new Vector3 (2.5f, 1.95f);
 
 		for (int i = 0; i < numBullets; i++) {
@@ -95,8 +102,13 @@ public class PlayerGhostController : Pawn
 	// Weapon 2: Homing Missiles
 	private void switchWeapons() {
 		weaponNum++;
-		if (weaponNum > 3) {
+		gunImage.SetActive (false);
+		missileImage.SetActive (true);
+		if (weaponNum > 2) {
 			weaponNum = 1;
+			gunImage.SetActive (true);
+			missileImage.SetActive (false);
+		} else {
 		}
 	}
 
@@ -127,6 +139,7 @@ public class PlayerGhostController : Pawn
 
     void performMovement()
     {
+		
         //Update edge points
         from = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.01f));
         to = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.99f));

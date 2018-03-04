@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //Each physical player has a 'player controller'
@@ -8,8 +9,6 @@ using UnityEngine;
 //This allows to easily switching player inputs between different objects
 //(Such as switching between the ghost and platformer)
 public class PlayerController : MonoBehaviour {
-
-    
 
     /// <summary>
     /// Retrieves the pawn this player controller is currently possessing. 
@@ -97,6 +96,7 @@ public class PlayerController : MonoBehaviour {
     {
         return Input.GetButton(getInputName(buttonName));
     }
+
 }
 
 //Base class for a controllable 'pawn'
