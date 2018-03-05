@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletCountdown : MonoBehaviour {
-	public Vector2 to;
 	public Vector2 from;
 
 	// On third bullet, amount of time player is stunned for
@@ -26,12 +25,14 @@ public class BulletCountdown : MonoBehaviour {
 
 	void LateUpdate () {
 		//Update edge points
-		from = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.9f));
-		to = Camera.main.ViewportToWorldPoint(new Vector3(0.9f, 0.99f));
+		from = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f));
 
 		curPos = Damp(curPos, goalPos, SmoothTime, Time.deltaTime);
 
-//		transform.position = Vector2.Lerp(from, to, curPos);
+		float newX = Vector2.Lerp(from, from, curPos).x;
+		float ogY = transform.position.y;
+		Vector2 newPos = new Vector2 (newX, ogY);
 
+		transform.position = newPos;
 	}
 }
