@@ -73,9 +73,9 @@ public class GhostPowerlessController : Pawn {
         ButtonState newState = GetButtonState();
         if (newState != prevState && newState != ButtonState.CENTER)
         {
-                prevState = newState;
                 AddProgress();
         }
 
+        prevState = newState;
     }
 }
