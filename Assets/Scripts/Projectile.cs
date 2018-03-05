@@ -34,17 +34,17 @@ public class Projectile : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();
-		if (collision.CompareTag("Shield")) {
+		/*if (collision.CompareTag("Shield")) {
 			//Explode ();
 			Debug.Log("shield collision");
 			ShieldParticles.gameObject.SetActive(true);
 			Destroy (gameObject);
 		}else{
+*/
 
-			Debug.Log("shield fail");
 			if (pc == null) return;
 			pc.ThrowBack (hitScale);
 			Destroy (gameObject);
 		} 
-    }
+    
 }

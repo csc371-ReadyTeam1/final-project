@@ -9,6 +9,9 @@ public class PlayerPlatformerController : Pawn
     public float airMoveAccel = 50.0f;
     public float maxSpeed = 1.0f;
     public float jumpSpeed = 3.0f;
+	private Collider2D collision;
+
+	public bool fullShieldEnable = true;
 
     /// <summary>
     /// Speed to use for double jumps while in air
@@ -34,6 +37,9 @@ public class PlayerPlatformerController : Pawn
 
     //How much more to scale hurt effects as combo increases
     public float hitComboThrowScale = 200;
+
+	// hitCount designed for use with fullShield (enabling/disabling)
+	private int hitCount = 0;
 
     public int maxHitCombo = 4;
     public float stunDuration = 0.25f;
@@ -123,6 +129,21 @@ public class PlayerPlatformerController : Pawn
 				Instantiate (ShieldPrefab, transform.position, Quaternion.Euler (0, 0, 0));
 			}
 		}
+
+		if (Controller.GetButton ("Fire4") && fullShieldEnable) {
+			if (hitCount == 10) {
+				fullShieldEnable = true;
+				hitCount = 0;
+			}
+			ShieldFull.SetActive (true);
+			//Debug.Log ("pressing V key");
+		} else {
+			ShieldFull.SetActive (false);
+
+
+
+		} 
+
     }
 
     public void Jump()
@@ -186,12 +207,8 @@ public class PlayerPlatformerController : Pawn
             horiz = 0;
         }
 		// Temp update to test full shield activating
-		if (Input.GetKey ("v")) {
-			ShieldFull.SetActive (true);
-			//Debug.Log ("pressing V key");
-		} else {
-			ShieldFull.SetActive (false);
-		} 
+
+
 
         //Reset jump count when they hit the ground
         if (isOnGround && body.velocity.y <= 0)
@@ -248,4 +265,11 @@ public class PlayerPlatformerController : Pawn
             body.AddForce(new Vector2(0, jumpUpForce));
         }
     }
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		Projectile p = collision.gameObject.GetComponent<Projectile>();
+		if (p == null) return;
+		hitCount++;
+
+	}
 }
