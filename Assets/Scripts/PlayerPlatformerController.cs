@@ -80,6 +80,8 @@ public class PlayerPlatformerController : Pawn
         //Store original sprite color
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         ogColor = renderer.color;
+
+        CameraController.instance.SetActiveFollower(gameObject);
     }
 
     /// <summary>
