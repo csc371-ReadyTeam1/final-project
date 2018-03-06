@@ -64,6 +64,7 @@ public class Missile : MonoBehaviour {
 			Debug.Log("shield fail");
 			//if (pc == null) return;
 			pc.ThrowBack (hitScale);
+            pc.Stun(hitScale);
 			Destroy (gameObject);
 		} 
 
