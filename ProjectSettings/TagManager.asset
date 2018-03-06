@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ghost
   - Shield
+  - bullet
+  - missileImage
   layers:
   - Default
   - TransparentFX

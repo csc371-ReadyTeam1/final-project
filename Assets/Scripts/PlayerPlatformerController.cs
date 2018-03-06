@@ -13,6 +13,7 @@ public class PlayerPlatformerController : Pawn
 
 	public bool fullShieldEnable = true;
 
+
     /// <summary>
     /// Speed to use for double jumps while in air
     /// </summary>
@@ -88,6 +89,16 @@ public class PlayerPlatformerController : Pawn
         ogColor = renderer.color;
     }
 
+    /// <summary>
+    /// When a player possesses this pawn, we want to set the color of the game object to match their color
+    /// </summary>
+    public override void OnPossessed()
+    {
+        NametagCreator nametag = GetComponent<NametagCreator>();
+        nametag.SetText(Controller.Name);
+        nametag.SetColor(Controller.PlayerColor);
+    }
+
     public bool IsStunned()
     {
         return stunResetTime > 0;
@@ -95,6 +106,8 @@ public class PlayerPlatformerController : Pawn
 
     private void Update()
     {
+        if (Controller == null) return;
+
         if (!IsStunned() && Controller.GetButtonDown("Jump"))
         {
 			SoundManager.instance.PlaySingle (jumpSound);
@@ -151,6 +164,11 @@ public class PlayerPlatformerController : Pawn
         wishJump = true;
     }
 
+    public void ResetStun()
+    {
+        stunResetTime = 0;
+    }
+
     public void ThrowBack(float hitScale)
     {
         bool onGround = IsOnGround();
@@ -188,16 +206,25 @@ public class PlayerPlatformerController : Pawn
 		SoundManager.instance.PlaySingle (stunnedSound);
 	}
 
-    public bool IsOnGround()
+    private bool GroundCast(float horizontalOffset)
     {
         Vector3 bottom = transform.position - transform.up * (bodyCollider.size.y / 2 - bodyCollider.offset.y) * transform.localScale.y;
-        Debug.DrawLine(bottom, bottom + transform.up * -0.03f * transform.localScale.y, Color.green);
+        bottom += new Vector3(horizontalOffset, 0, 0); //Apply horizontal offset
 
-        return Physics2D.Linecast(bottom, bottom + transform.up * -0.03f * transform.localScale.y, 1 << 9); //9 == World Collision
+        Debug.DrawLine(bottom, bottom + transform.up * -0.03f * transform.localScale.y, Color.green);
+        //9 == World Collision
+        return Physics2D.Linecast(bottom, bottom + transform.up * -0.03f * transform.localScale.y, 1 << 9);
+    }
+
+    public bool IsOnGround()
+    {
+        float offset = (bodyCollider.size.x / 2) * transform.localScale.x;
+        return GroundCast(offset) || GroundCast(-offset);
     }
 
     // Update is called once per frame
     void FixedUpdate () {
+        if (Controller == null) { return; }
         float horiz = Controller.GetAxisRaw("Horizontal");
         bool isOnGround = IsOnGround();
 

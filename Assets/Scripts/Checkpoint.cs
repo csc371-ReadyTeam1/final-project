@@ -14,12 +14,10 @@ public class Checkpoint : MonoBehaviour {
     /// </summary>
     public bool IsFinish = false;
 
-    public AudioClip CaptureSound;
-
     public GameObject ForcefieldToggle;
 
     float captureAmount;
-    bool isBeingCaptured = false;
+    Pawn currentCapturer = null;
     bool isCaptured = false;
     SpriteRenderer render;
     private AudioSource activateSrc;
@@ -32,35 +30,37 @@ public class Checkpoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isBeingCaptured || isCaptured) return;
+        if (currentCapturer == null || isCaptured) return;
 
         captureAmount += Time.deltaTime;
         CaptureText.text = Mathf.Round(captureAmount * 100 / CaptureTime) + "% captured";
 
         if (captureAmount > CaptureTime)
         {
-            Capture();
+            Capture(currentCapturer.Controller);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Pawn pawn = collision.gameObject.GetComponent<Pawn>();
+        if (pawn != null && pawn == GameController.instance.platformer)
         {
-            isBeingCaptured = true;
+            currentCapturer = pawn;
         }
 
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        Pawn pawn = collision.gameObject.GetComponent<Pawn>();
+        if (pawn != null && pawn == currentCapturer)
         {
-            isBeingCaptured = false;
+            currentCapturer = null;
         }
     }
 
-    public void Capture()
+    public void Capture(PlayerController capturer)
     {
         render.sprite = CapturedSprite;
         CaptureText.text = "CAPTURED!!!";
@@ -70,7 +70,7 @@ public class Checkpoint : MonoBehaviour {
 
         if (IsFinish)
         {
-            GameController.instance.Finish(false);
+            GameController.instance.Finish(capturer);
         }
         else
         {

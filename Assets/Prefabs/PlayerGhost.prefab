@@ -21,6 +21,9 @@ GameObject:
   - component: {fileID: 4100401455251746}
   - component: {fileID: 212667479365158228}
   - component: {fileID: 114238325137851612}
+  - component: {fileID: 58167447434735066}
+  - component: {fileID: 50517661844882036}
+  - component: {fileID: 114599956536906920}
   m_Layer: 8
   m_Name: PlayerGhost
   m_TagString: Ghost
@@ -41,6 +44,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50517661844882036
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832471323728126}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &58167447434735066
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832471323728126}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.265
 --- !u!114 &114238325137851612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,18 +92,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   from: {x: 0, y: 0}
   to: {x: 0, y: 0}
-  SmoothTime: 0.0001
+  SmoothTime: 0.00001
+  MoveSpeed: 0.0125
   MouseSmoothTime: 0.1
   useMouseInput: 0
   fireRate: 0.25
   BulletPrefab: {fileID: 1433884226118000, guid: 5e791f207eed493428c07a08b85b205a,
     type: 2}
-  HomingPrefab: {fileID: 0}
+  HomingPrefab: {fileID: 1272176105275326, guid: db4e5449b5d1e4524b12f70ddca11d86,
+    type: 2}
   ChargedProjectile: {fileID: 1368548908040598, guid: 2fa0a1f06c79b48468cef0428eefdba0,
     type: 2}
   fireSound: {fileID: 8300000, guid: d776c0b221b4947ff83d6118a2d71371, type: 3}
   reloadSound: {fileID: 8300000, guid: 4f4db2aaac1044e18a5199da3f0ed905, type: 3}
+  bodySwitchSound: {fileID: 8300000, guid: 2ca7e5e3ff5d0c04db8c157468be0a62, type: 3}
   numOfMissiles: 5
+--- !u!114 &114599956536906920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1832471323728126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9c96035bd2a1d4a8eb4cb6e699fcce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nametagPrefab: {fileID: 1250257019653078, guid: 8d853ed772b250f47ab29984ba1a2383,
+    type: 2}
 --- !u!212 &212667479365158228
 SpriteRenderer:
   m_ObjectHideFlags: 1

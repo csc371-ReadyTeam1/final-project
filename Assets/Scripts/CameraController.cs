@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour {
     {
         if (target == null)
         {
-            target = GameController.instance.platformer;
+            target = GameController.instance.platformer.gameObject;
             return;
         }
 

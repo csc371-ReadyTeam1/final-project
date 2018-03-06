@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public enum GameState
 {
     WAITING_FOR_PLAYERS,
+    MINIGAME,
     PLAYING,
     GAMEOVER
 }
@@ -15,43 +16,68 @@ public class GameController : MonoBehaviour {
 
     public Text timerText;
     public Text winText;
-    public float timeLimit = 60.0f;
+    public Text player1Score;
+    public Text player2Score;
+    public float timeLimit = 60.0f; //Deprecated?
+    public float countdownTime = 3.0f;
 
     public GameObject GhostPrefab;
     public GameObject PlatformerPrefab;
+    public GameObject MinigameGhostPrefab;
 
-    public GameObject platformer { get; private set; }
-    public GameObject ghost { get; private set; }
+    public Pawn platformer { get; private set; }
+    public Pawn ghost { get; private set; }
+
+    public PlayerController[] players { get; private set; }
 
     public static GameController instance;
     public List<PlayerController> Players = new List<PlayerController>();
+
+    public delegate void StunAction();
+    /// <summary>
+    /// Called when the human has been stunned and cannot move
+    /// </summary>
+    public event StunAction OnHumanStunned;
 
     //#TODO: This is a pretty gross pattern, think of a better way architecturally to do this
     //Perhaps on game startup choose the player inputs, and those objects exist always throughout scenes?
     public static bool PlayersSwitched = true;
 
     private float curTimeLeft;
-    GameState State = GameState.WAITING_FOR_PLAYERS;
+    private bool wasStunned = false;
+
+    /// <summary>
+    /// Reflects the current state of the game. 
+    /// </summary>
+    public GameState State { get; private set; }
 
     private void Awake()
     {
+        State = GameState.WAITING_FOR_PLAYERS;
         if (instance == null)
         {
             instance = this;
         }
+
+        players = new PlayerController[2]; //Hardcoded 2 player game, sue me
 
         gameObject.AddComponent<SoundManager>();
     }
 
     // Use this for initialization
     void Start () {
-        SetupPlayers();
+        SetupPlayers(); //Spawns the player controllers
 
         //Toggle switching players every time the game ends
-        if (PlayersSwitched)
-            SwitchPlayers();
+        //if (PlayersSwitched)
+        //    SwitchPlayers();
 
-        StartGame();
+        //Setup the minigame players
+        SpawnStartGhosts();
+
+        curTimeLeft = countdownTime;
+
+        //StartGame(); //Started by countdown timer
     }
 
     //#TODO: Add some sort of 'Press any key to join' phase.
@@ -61,23 +87,55 @@ public class GameController : MonoBehaviour {
     void SetupPlayers()
     {
         PlayerController pc1 = AddPlayer();
+        pc1.Name = "Player 1"; //#TODO: Allow them to set their names?
+        pc1.PlayerColor = new Color(0.95f, 0.26f, 0.26f);
         PlayerController pc2 = AddPlayer();
+        pc2.Name = "Player 2";
+        pc2.PlayerColor = new Color(0.26f, 0.45f, 0.95f);
+
+        players[0] = pc1;
+        players[1] = pc2;
 
         //Spawn and hook up the 'ghost'
-        ghost = Instantiate(GhostPrefab);
-        Pawn p1 = ghost.GetComponent<Pawn>();
-        pc1.Possess(p1);
+        ghost = Instantiate(GhostPrefab).GetComponent<Pawn>();
+        ghost.gameObject.SetActive(false); //Hide initially until the game starts
+        //pc1.Possess(ghost);
 
         //Spawn and hook up the platformer
-        platformer = Instantiate(PlatformerPrefab);
-        Pawn p2 = platformer.GetComponent<Pawn>();
-        pc2.Possess(p2);
+        platformer = Instantiate(PlatformerPrefab).GetComponent<Pawn>();
+        //pc2.Possess(platformer);
     }
 
-    void SwitchPlayers()
+    /// <summary>
+    /// In the beginning of the game, there's a minigame to decide who controls the platformer
+    /// Spawn the temporary ghosts which will decide who will win
+    /// </summary>
+    void SpawnStartGhosts()
     {
-        Pawn pghost = ghost.GetComponent<Pawn>();
-        Pawn pplat = platformer.GetComponent<Pawn>();
+        Vector3 centerPos = platformer.transform.position;
+        Quaternion rot = Quaternion.identity;
+
+        Pawn p1 = Instantiate(MinigameGhostPrefab, centerPos + new Vector3(-1, 0, 0), rot).GetComponent<Pawn>();
+        Pawn p2 = Instantiate(MinigameGhostPrefab, centerPos + new Vector3(1, 0, 0), rot).GetComponent<Pawn>();
+
+        //Parent to human so if the human moves, they move too
+        p1.gameObject.transform.SetParent(platformer.transform.transform);
+        p2.gameObject.transform.SetParent(platformer.transform.transform);
+
+        players[0].Possess(p1);
+        players[1].Possess(p2);
+    }
+
+
+    /// <summary>
+    /// Switches the roles of both players. 
+    /// This immediately switches the bodies they are in, no matter what they are
+    /// This affects their input controls and their role in the game
+    /// </summary>
+    public void SwitchPlayers()
+    {
+        Pawn pghost = ghost;
+        Pawn pplat = platformer;
 
         PlayerController pcplat = pplat.Controller;
         pghost.Controller.Possess(pplat);
@@ -85,12 +143,57 @@ public class GameController : MonoBehaviour {
         pcplat.Possess(pghost);
     }
 
-    void RestartLevel()
+    /// <summary>
+    /// Returns true if the human character is currently stunned and cannot move.
+    /// </summary>
+    /// <returns></returns>
+    public bool IsHumanStunned()
+    {
+        return platformer.GetComponent<PlayerPlatformerController>().IsStunned();
+    }
+
+    /// <summary>
+    /// Mark a specific player as the winner of the minigame
+    /// This is used to determine which player should initially be in the human body
+    /// </summary>
+    /// <param name="pc"></param>
+    public void WinMinigame(PlayerController pc)
+    {
+        if (State != GameState.MINIGAME) return;
+
+        //Remove the extra minigame ghosties
+        foreach (PlayerController ply in players)
+        {
+            Destroy(ply.ControlledPawn.gameObject);
+        }
+
+        //Enable the ghost now
+        ghost.gameObject.SetActive(true);
+
+        //Possess the platformer/actual ghost
+        PlayerController ghostPC = pc == players[0] ? players[1] : players[0];
+ 
+        ghostPC.Possess(ghost);
+        pc.Possess(platformer);
+
+        State = GameState.PLAYING;
+    }
+
+    /// <summary>
+    /// Immediately restart the current level. 
+    /// Resets all objects and controls
+    /// </summary>
+    public void RestartLevel()
     {
         PlayersSwitched = !PlayersSwitched;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// Add a new physical player into the scene in the form of a PlayerController object
+    /// These objects provide the interface between the player and the object they'd like to control
+    /// </summary>
+    /// <returns>The newly created PlayerController object</returns>
     PlayerController AddPlayer()
     {
         PlayerController pc = gameObject.AddComponent<PlayerController>();
@@ -102,15 +205,16 @@ public class GameController : MonoBehaviour {
 
     public void StartGame()
     {
-        curTimeLeft = timeLimit;
-        State = GameState.PLAYING;
+        //curTimeLeft = timeLimit;
+        State = GameState.MINIGAME;
     }
 
-    public void Finish(bool timeOut)
+    public void Finish(PlayerController winner)
     {
         State = GameState.GAMEOVER;
 
-        winText.text = timeOut ? "SPIRIT WINS" : "PERSON WINS";
+        winText.text = winner.Name + " WINS";
+        winText.color = winner.PlayerColor;
         winText.gameObject.SetActive(true);
 
         //Restart the level in 5 seconds with the players switched
@@ -120,23 +224,48 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //Countdown to game start
         if (State == GameState.WAITING_FOR_PLAYERS)
         {
+            float seconds = Mathf.Ceil(curTimeLeft);
+            timerText.text = curTimeLeft > 0 ? seconds.ToString() : "GO!!";
 
+            if (curTimeLeft <= -1)
+            {
+                timerText.gameObject.SetActive(false);
+                StartGame();
+            }
+
+            //Every frame, decrement however much time has passed from the 'time left'
+            curTimeLeft -= Time.deltaTime;
         }
 
         //Only perform game logic if the game is active and playing
         if (State != GameState.PLAYING) { return; }
-
-        //Every frame, decrement however much time has passed from the 'time left'
-        curTimeLeft -= Time.deltaTime;
 
         if (curTimeLeft < 0)
         {
             curTimeLeft = 0;
         }
 
+        //Check game logic
+        bool stunned = IsHumanStunned();
+        if (stunned != wasStunned)
+        {
+            wasStunned = stunned;
+            if (wasStunned && OnHumanStunned != null)
+                OnHumanStunned();
+        }
+
+        //Debug command
+        if (Input.GetButtonDown("Switch"))
+        {
+            SwitchPlayers();
+        }
+
         //Also update the timer text too
+        //Disabled for now, slight change in direction of game so the timer in this form isn't needed
+        /*
         float minutes = Mathf.Floor(curTimeLeft / 60.0f);
         float seconds = Mathf.Floor(curTimeLeft % 60);
         float ms = Mathf.Floor((curTimeLeft % 1.0f) * 10.0f);
@@ -145,6 +274,6 @@ public class GameController : MonoBehaviour {
         if (curTimeLeft <= 0)
         {
             Finish(true);
-        }
+        }*/
     }
 }
