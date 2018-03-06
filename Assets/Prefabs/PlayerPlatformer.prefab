@@ -97,8 +97,6 @@ GameObject:
   - component: {fileID: 212930435978980384}
   - component: {fileID: 50599845272500756}
   - component: {fileID: 58208802721181416}
-  - component: {fileID: 249393403049242464}
-  - component: {fileID: 114853442940808700}
   m_Layer: 8
   m_Name: FullShield
   m_TagString: Shield
@@ -198,7 +196,7 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
@@ -461,18 +459,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: STUNNED!!
---- !u!114 &114853442940808700
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1699651129809142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fece3035167447678c7ae37b65a21d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifeTime: 4
 --- !u!198 &198469785555948198
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -4039,22 +4025,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 203.6}
   m_SizeDelta: {x: 1838.7, y: 458.37}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!249 &249393403049242464
-AreaEffector2D:
-  serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1699651129809142}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 3072
-  m_UseGlobalAngle: 0
-  m_ForceAngle: 0
-  m_ForceMagnitude: 0
-  m_ForceVariation: 0
-  m_ForceTarget: 0
-  m_Drag: 0
-  m_AngularDrag: 0
