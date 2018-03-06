@@ -14,6 +14,7 @@ public class PlayerPlatformerController : Pawn
 	public bool fullShieldEnable = true;
 
 
+
     /// <summary>
     /// Speed to use for double jumps while in air
     /// </summary>
