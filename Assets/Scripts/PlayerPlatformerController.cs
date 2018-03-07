@@ -11,7 +11,6 @@ public class PlayerPlatformerController : Pawn
     public float jumpSpeed = 3.0f;
 
 
-
     /// <summary>
     /// Speed to use for double jumps while in air
     /// </summary>
