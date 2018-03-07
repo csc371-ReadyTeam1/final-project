@@ -1,1 +1,9 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+m_EditorVersion: 2017.3.1p1
+=======
 m_EditorVersion: 2017.3.1f1
+>>>>>>> master
+=======
+m_EditorVersion: 2017.3.1f1
+>>>>>>> master
