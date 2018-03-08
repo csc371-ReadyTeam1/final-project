@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 204728723}
   - component: {fileID: 204728724}
+  - component: {fileID: 204728725}
   m_Layer: 0
   m_Name: Parallax
   m_TagString: Untagged
@@ -197,6 +198,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbccfd4f4d8d114dbd978df2bd85188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &204728725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 204728722}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b364d8d33b03664a9e424c330da18d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxCamera: {fileID: 1166283356}
+  Speed: 5
+  Elements:
+  - GameObjects:
+    - {fileID: 1964342543}
+    SpeedRatio: 0
+    RepositionLogic:
+      PositionMode: 3
+      ScaleHeight: 0
+      SortingOrder: 0
+      MinYPercent: 0
+      MaxYPercent: 0
+      MinXPercent: 0
+      MaxXPercent: 0
+  - GameObjects:
+    - {fileID: 824507869}
+    SpeedRatio: 0.03
+    RepositionLogic:
+      PositionMode: 3
+      ScaleHeight: 0
+      SortingOrder: 0
+      MinYPercent: 0
+      MaxYPercent: 0
+      MinXPercent: 0
+      MaxXPercent: 0
+  IsHorizontal: 1
+  WrapOverlap: 1
 --- !u!1 &419743677
 GameObject:
   m_ObjectHideFlags: 0
@@ -12381,7 +12420,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 44.8, y: 8}
+  m_Size: {x: 45.04, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
