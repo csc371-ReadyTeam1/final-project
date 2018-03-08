@@ -15,6 +15,7 @@ public class Checkpoint : MonoBehaviour {
     public bool IsFinish = false;
 
     public GameObject ForcefieldToggle;
+	public GameObject Shop;
 
     float captureAmount;
     Pawn currentCapturer = null;
@@ -75,6 +76,7 @@ public class Checkpoint : MonoBehaviour {
         else
         {
             ForcefieldToggle.SetActive(true);
+			Shop.SetActive(true);
         }
     }
 }
