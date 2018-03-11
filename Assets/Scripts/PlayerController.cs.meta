@@ -5,7 +5,10 @@ licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - missileImage: {fileID: 1573004472696112, guid: 145cea5039ef647949c3d3f66994400b,
+      type: 2}
+  - gunImage: {fileID: 1220494277895612, guid: f1bc14b2207d34d72b40fec14fd22591, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

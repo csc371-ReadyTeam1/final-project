@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour {
 
     public Text timerText;
     public Text winText;
+    public Text player1Score;
+    public Text player2Score;
     public float timeLimit = 60.0f; //Deprecated?
     public float countdownTime = 3.0f;
 
@@ -199,6 +201,17 @@ public class GameController : MonoBehaviour {
         Players.Add(pc);
 
         return pc;
+    }
+
+    /// <summary>
+    /// Given a player controller, get the 'other' player controller.
+    /// Assumes a 2-player game, but a useful utility function for things that assume opposites.
+    /// </summary>
+    /// <param name="pc">The first player controller to get the enemy of</param>
+    /// <returns>The "other" player controller.</returns>
+    public PlayerController GetOther(PlayerController pc)
+    {
+        return pc == players[0] ? players[1] : players[0];
     }
 
     public void StartGame()

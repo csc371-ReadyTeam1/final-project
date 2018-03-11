@@ -99,7 +99,8 @@ MonoBehaviour:
   fireRate: 0.25
   BulletPrefab: {fileID: 1433884226118000, guid: 5e791f207eed493428c07a08b85b205a,
     type: 2}
-  HomingPrefab: {fileID: 0}
+  HomingPrefab: {fileID: 1272176105275326, guid: db4e5449b5d1e4524b12f70ddca11d86,
+    type: 2}
   ChargedProjectile: {fileID: 1368548908040598, guid: 2fa0a1f06c79b48468cef0428eefdba0,
     type: 2}
   fireSound: {fileID: 8300000, guid: d776c0b221b4947ff83d6118a2d71371, type: 3}

@@ -15,6 +15,7 @@ public class NametagCreator : MonoBehaviour {
     {
         nametag = Instantiate(nametagPrefab, transform);
         nametext = nametag.GetComponentInChildren<Text>();
+        nametext.text = ""; //Reset text on start. Default text is for preview only
     }
 	
     public void SetText(string text)

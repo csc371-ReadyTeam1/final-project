@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 //Each physical player has a 'player controller'
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour {
     {
         return Input.GetButton(getInputName(buttonName));
     }
+
 }
 
 //Base class for a controllable 'pawn'

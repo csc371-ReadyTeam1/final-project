@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c761dc2837f9841f493eba9d53fb71e0, type: 3}
+  m_Name: HomingMissile
+  m_EditorClassIdentifier: 
+  abilityObject: Homing Missile
+  cost: 100
+  description: Sit back and let the spirit detection technology behind this homing
+    missile do the work for you, ghosty
+  player: 1
+  fireRate: 0.5
+  damage: 10
+  range: 100
