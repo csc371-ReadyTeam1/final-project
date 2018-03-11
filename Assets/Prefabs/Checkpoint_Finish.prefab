@@ -190,6 +190,8 @@ MonoBehaviour:
   CaptureTime: 10
   IsFinish: 1
   ForcefieldToggle: {fileID: 0}
+  ShopCanvas: {fileID: 0}
+  circleMaterial: {fileID: 2100000, guid: c298061c2f03aa84dbad6ced98ba66e5, type: 2}
 --- !u!114 &114761339826176024
 MonoBehaviour:
   m_ObjectHideFlags: 1

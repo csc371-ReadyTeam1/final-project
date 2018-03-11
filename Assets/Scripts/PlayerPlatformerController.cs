@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,7 +84,9 @@ public class PlayerPlatformerController : Pawn
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         ogColor = renderer.color;
 
+        //For both virtual cameras, set ourselves as the follow object so they focus on us
         CameraController.instance.SetActiveFollower(gameObject);
+        GameController.instance.VirtualMinigameCam.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
     }
 
     /// <summary>

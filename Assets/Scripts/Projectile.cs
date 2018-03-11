@@ -40,8 +40,6 @@ public class Projectile : MonoBehaviour {
 			ShieldParticles.gameObject.SetActive(true);
 			Destroy (gameObject);
 		}else{
-
-			Debug.Log("shield fail");
 			if (pc == null) return;
 			pc.ThrowBack (hitScale);
 			Destroy (gameObject);

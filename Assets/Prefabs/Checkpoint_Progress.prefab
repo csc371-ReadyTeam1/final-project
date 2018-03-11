@@ -405,8 +405,9 @@ MonoBehaviour:
   CaptureText: {fileID: 114176256475384510}
   CaptureTime: 10
   IsFinish: 0
-  CaptureSound: {fileID: 8300000, guid: a81aaeb083ea9fb44bcb3b7567373ee8, type: 3}
   ForcefieldToggle: {fileID: 1340501262431574}
+  ShopCanvas: {fileID: 0}
+  circleMaterial: {fileID: 2100000, guid: c298061c2f03aa84dbad6ced98ba66e5, type: 2}
 --- !u!212 &212077334784300400
 SpriteRenderer:
   m_ObjectHideFlags: 1

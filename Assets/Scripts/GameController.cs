@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour {
     public GameObject PlatformerPrefab;
     public GameObject MinigameGhostPrefab;
 
+    public GameObject VirtualMainCam;
+    public GameObject VirtualMinigameCam;
+
     public Pawn platformer { get; private set; }
     public Pawn ghost { get; private set; }
 
@@ -176,6 +179,8 @@ public class GameController : MonoBehaviour {
         ghostPC.Possess(ghost);
         pc.Possess(platformer);
 
+        //Playing state + camera
+        VirtualMinigameCam.SetActive(false);
         State = GameState.PLAYING;
     }
 

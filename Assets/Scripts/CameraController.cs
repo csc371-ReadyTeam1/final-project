@@ -23,7 +23,7 @@ public class CameraController : CinemachineExtension
         //lastPos = offset;
 
         //#TODO: Store defaultCamX from the Frame Transposer
-        VirtualCamera.
+        //VirtualCamera.
 
         if (instance == null)
         {
@@ -74,7 +74,7 @@ public class CameraController : CinemachineExtension
         //Calculate screen shake
         float amt = Mathf.Max(shakeScreenEndTime - Time.time, 0) * screenShakeScale;
         Vector3 shakeOffset = new Vector3(Random.Range(-amt, amt), Random.Range(-amt, amt), 0);
-        Debug.Log(shakeOffset);
+
         state.PositionCorrection += shakeOffset;
     }
 
