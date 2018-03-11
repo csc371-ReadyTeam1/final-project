@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour {
     public bool IsFinish = false;
 
     public GameObject ForcefieldToggle;
-	public GameObject Shop;
+	public GameObject ShopCanvas;
 
     float captureAmount;
     Pawn currentCapturer = null;
@@ -27,6 +27,8 @@ public class Checkpoint : MonoBehaviour {
     void Start () {
         render = GetComponent<SpriteRenderer>();
         activateSrc = GetComponent<AudioSource>();
+
+		ShopCanvas.SetActive (false);
     }
 	
 	// Update is called once per frame
@@ -76,7 +78,20 @@ public class Checkpoint : MonoBehaviour {
         else
         {
             ForcefieldToggle.SetActive(true);
-			Shop.SetActive(true);
+			OpenShop ();
         }
     }
+
+	void OpenShop()
+	{
+		ShopCanvas.SetActive (true);
+		Time.timeScale = 0;
+	}
+
+	public void CloseShop()
+	{
+		ShopCanvas.SetActive (false);
+		Debug.Log ("Closed Shop.");
+		Time.timeScale = 1;
+	}
 }

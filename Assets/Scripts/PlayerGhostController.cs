@@ -34,7 +34,7 @@ public class PlayerGhostController : Pawn
 	private Color greyedOut = new Color(0.7f, 0.7f, 0.7f, 0.5f);
     private float goalPos = 0.5f; //Between 0 and 1
     private float curPos;
-	private int numBullets = 3;
+	public int numBullets = 3;
 	private int bulletIndex = 0;
 	private float coolTime = 3.0f;
 	private float timer = 0.0f;
