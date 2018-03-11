@@ -107,7 +107,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player 1
+  m_Text: 
 --- !u!114 &114136857012762316
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -203,6 +203,17 @@ public class GameController : MonoBehaviour {
         return pc;
     }
 
+    /// <summary>
+    /// Given a player controller, get the 'other' player controller.
+    /// Assumes a 2-player game, but a useful utility function for things that assume opposites.
+    /// </summary>
+    /// <param name="pc">The first player controller to get the enemy of</param>
+    /// <returns>The "other" player controller.</returns>
+    public PlayerController GetOther(PlayerController pc)
+    {
+        return pc == players[0] ? players[1] : players[0];
+    }
+
     public void StartGame()
     {
         //curTimeLeft = timeLimit;
