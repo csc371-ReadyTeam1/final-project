@@ -16,7 +16,7 @@ public class Missile : MonoBehaviour {
 	public float hitScale = 1.0f;
 
 	public GameObject ShieldParticles;
-
+	public GameObject explosion;
 
 	// Use this for initialization
 	void Start () {
@@ -63,6 +63,7 @@ public class Missile : MonoBehaviour {
 		if (collision.CompareTag("Player")) {
 			Debug.Log("shield fail");
 			//if (pc == null) return;
+			Instantiate (explosion, transform.position, Quaternion.Euler (0, 0, 0));
 			pc.ThrowBack (hitScale);
             pc.Stun(hitScale);
 			Destroy (gameObject);

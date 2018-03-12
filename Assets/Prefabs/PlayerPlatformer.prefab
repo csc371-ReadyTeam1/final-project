@@ -361,6 +361,7 @@ MonoBehaviour:
   ShieldPrefab: {fileID: 1672525919300056, guid: 5dffe590c2f494a48b696128ab89481d,
     type: 2}
   ShieldFull: {fileID: 1699651129809142}
+  explosion: {fileID: 1779921989117804, guid: e0f1e28f4f4ff4504aad072394a3b72e, type: 2}
   move1Sound: {fileID: 8300000, guid: 050d48b0b7fb14c2ea707d307d1497f7, type: 3}
   move2Sound: {fileID: 8300000, guid: 050d48b0b7fb14c2ea707d307d1497f7, type: 3}
   hit1Sound: {fileID: 8300000, guid: 5e0d4b679474d4f77a336bc44fcbe7ff, type: 3}

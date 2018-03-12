@@ -104,6 +104,7 @@ MonoBehaviour:
   speed: 5
   lifeTime: 5
   ShieldParticles: {fileID: 0}
+  explosion: {fileID: 1779921989117804, guid: e0f1e28f4f4ff4504aad072394a3b72e, type: 2}
 --- !u!212 &212796071179296768
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,7 +138,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2113565335
   m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 101a50503b30247eaa0aeb9e0899aabf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

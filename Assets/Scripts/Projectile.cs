@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour {
 
 	private Rigidbody2D body;
 	public GameObject ShieldParticles;
+	public GameObject explosion;
 
 	void Start() {
 		body = GetComponent<Rigidbody2D> ();
@@ -34,14 +35,16 @@ public class Projectile : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();
-		if (collision.CompareTag("Shield")) {
+		if (collision.CompareTag("Bullet")) {
 			//Explode ();
 			Debug.Log("shield collision");
 			ShieldParticles.gameObject.SetActive(true);
 			Destroy (gameObject);
+
 		}else{
 			if (pc == null) return;
 			pc.ThrowBack (hitScale);
+			Instantiate (explosion, transform.position, Quaternion.Euler (0, 0, 0));
 			Destroy (gameObject);
 		} 
     }

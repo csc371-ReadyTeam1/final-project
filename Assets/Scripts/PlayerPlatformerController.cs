@@ -23,6 +23,7 @@ public class PlayerPlatformerController : Pawn
 	public GameObject ShieldPrefab;
 	public GameObject ShieldFull;
 
+
 	// SFX
 	public AudioClip move1Sound;
 	public AudioClip move2Sound;
@@ -158,6 +159,7 @@ public class PlayerPlatformerController : Pawn
     {
         bool onGround = IsOnGround();
         float scale = hitScale * projectileForceScale + hitCombo * hitComboThrowScale;
+
         body.AddForce(new Vector2(-1, onGround ? 0.3f : 0.1f) * scale);
         CameraController.instance.ShakeScreen(hitScale + hitCombo * 0.1f);
 
