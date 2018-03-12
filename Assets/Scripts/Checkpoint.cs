@@ -31,9 +31,10 @@ public class Checkpoint : MonoBehaviour {
     void Start () {
         render = GetComponent<SpriteRenderer>();
         activateSrc = GetComponent<AudioSource>();
-
-		ShopCanvas.SetActive (false);
         circleMesh = new Mesh();
+
+        if (ShopCanvas != null)
+		    ShopCanvas.SetActive (false);
     }
 
 
