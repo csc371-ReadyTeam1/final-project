@@ -48,10 +48,6 @@ public class Missile : MonoBehaviour {
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();
-		/*if (collision.tag == "Player") {
-			GameObject.Destroy (gameObject);
-			//gameController.instance.Died ();
-		}*/
 
 
 		if (collision.CompareTag("Shield")) {
