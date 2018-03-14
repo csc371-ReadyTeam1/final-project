@@ -166,7 +166,7 @@ public class Checkpoint : MonoBehaviour {
 
 	void OpenShop()
 	{
-		ShopCanvas.SetActive (false);
+		ShopCanvas.SetActive (true);
 		Time.timeScale = 0;
 	}
 
