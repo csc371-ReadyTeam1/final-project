@@ -30,16 +30,20 @@ public class PlayerGhostController : Pawn
     public AudioClip bodySwitchSound;
 
 	private GameObject[] chargedBullets;
+	private GameObject[] canvasBullets;
+	private GameObject[] canvasMissiles;
 	private Color ogColor;
 	private Color greyedOut = new Color(0.7f, 0.7f, 0.7f, 0.5f);
     private float goalPos = 0.5f; //Between 0 and 1
     private float curPos;
-	public int numBullets = 3;
+	public int numBullets = 5;
 	private int bulletIndex = 0;
 	private float coolTime = 3.0f;
 	private float timer = 0.0f;
 	private int weaponNum = 1;
 	public int numOfMissiles = 5;
+	private int maxNumOfBullets = 10;
+	private int maxNumOfMissiles = 10;
 
     private float fireCooldown = 0;
     private bool isCoolingDown = false;
@@ -48,22 +52,56 @@ public class PlayerGhostController : Pawn
     private Vector2 altGoalPos;
     private Vector2 altCurPos;
 
+	private GameObject canvas;
+
 	// Use this for initialization
 	void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
+
+		canvasBullets = new GameObject[10];
+		canvasBullets [0] = GameObject.Find ("bullet1");
+		canvasBullets [1] = GameObject.Find ("bullet2");
+		canvasBullets [2] = GameObject.Find ("bullet3");
+		canvasBullets [3] = GameObject.Find ("bullet4");
+		canvasBullets [4] = GameObject.Find ("bullet5");
+		canvasBullets [5] = GameObject.Find ("bullet6");
+		canvasBullets [6] = GameObject.Find ("bullet7");
+		canvasBullets [7] = GameObject.Find ("bullet8");
+		canvasBullets [8] = GameObject.Find ("bullet9");
+		canvasBullets [9] = GameObject.Find ("bullet10");
+
+		canvasMissiles = new GameObject[10];
+		canvasMissiles [0] = GameObject.Find ("missile1");
+		canvasMissiles [1] = GameObject.Find ("missile2");
+		canvasMissiles [2] = GameObject.Find ("missile3");
+		canvasMissiles [3] = GameObject.Find ("missile4");
+		canvasMissiles [4] = GameObject.Find ("missile5");
+		canvasMissiles [5] = GameObject.Find ("missile6");
+		canvasMissiles [6] = GameObject.Find ("missile7");
+		canvasMissiles [7] = GameObject.Find ("missile8");
+		canvasMissiles [8] = GameObject.Find ("missile9");
+		canvasMissiles [9] = GameObject.Find ("missile10");
+
 		missileImage.SetActive (false);
 		chargedBullets = new GameObject[numBullets];
 		Vector3 bulletPos = new Vector3 (2.5f, 1.95f);
+		canvas = GameObject.Find ("Canvas");
 
-		for (int i = 0; i < numBullets; i++) {
-			bulletPos.y = bulletPos.y - 0.1f;
+		for (int i = 0; i < maxNumOfBullets-numBullets; i++) {
+			//bulletPos.y = bulletPos.y - 0.1f;
+			canvasBullets [9 - i].SetActive (false);
+			//chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
 
-			chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
+			//chargedBullets[i].transform.SetParent(canvas.transform,false);
+		}
+
+		for (int i = 0; i < maxNumOfMissiles-numOfMissiles; i++) {
+			canvasMissiles [9 - i].SetActive (false);
 		}
 
 		// Saving color of first bullet for reference when reloading
-		ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
+		//ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
 
         //Hook into when the human player is stunned (letting the ghost take over)
         GameController.instance.OnHumanStunned += Instance_OnHumanStunned;
@@ -92,7 +130,8 @@ public class PlayerGhostController : Pawn
 		SoundManager.instance.PlaySingle (reloadSound);
 
 		for (int i = 0; i < numBullets; i++) {
-			chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+			//chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+			canvasBullets [i].SetActive(true);
 		}
 	}
 
@@ -168,7 +207,8 @@ public class PlayerGhostController : Pawn
 				Instantiate (BulletPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 
 				// Show bullet was unloaded in stock; remove BulletCountdown
-				chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
+				//chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
+				canvasBullets [bulletIndex].SetActive(false);
 				bulletIndex++;
 
                 //Start reloading when it's the last shot
@@ -179,6 +219,7 @@ public class PlayerGhostController : Pawn
 			} else if (weaponNum == 2 && numOfMissiles > 0) { //Homing missiles
 				Instantiate (HomingPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 				numOfMissiles--;
+				canvasMissiles [numOfMissiles].SetActive (false);
 			}
         }
 

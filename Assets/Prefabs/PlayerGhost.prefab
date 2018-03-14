@@ -106,6 +106,7 @@ MonoBehaviour:
   fireSound: {fileID: 8300000, guid: d776c0b221b4947ff83d6118a2d71371, type: 3}
   reloadSound: {fileID: 8300000, guid: 4f4db2aaac1044e18a5199da3f0ed905, type: 3}
   bodySwitchSound: {fileID: 8300000, guid: 2ca7e5e3ff5d0c04db8c157468be0a62, type: 3}
+  numBullets: 10
   numOfMissiles: 5
 --- !u!114 &114599956536906920
 MonoBehaviour:
