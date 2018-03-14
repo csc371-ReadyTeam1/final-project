@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
+	private int missileCount = 0;
+
     //How much relative 'power' is behind this projectile.
     //Affects how far the player is pushed back
     public float hitScale = 1.0f;
@@ -17,6 +19,7 @@ public class Projectile : MonoBehaviour {
 	private Rigidbody2D body;
 	public GameObject ShieldParticles;
 	public GameObject explosion;
+	private GameObject ghost;
 
 	void Start() {
 		body = GetComponent<Rigidbody2D> ();
@@ -35,12 +38,11 @@ public class Projectile : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();
-		if (collision.CompareTag("Bullet")) {
+		if (collision.CompareTag("bullet")) {
 			//Explode ();
 			Debug.Log("shield collision");
 			ShieldParticles.gameObject.SetActive(true);
 			Destroy (gameObject);
-
 		}else{
 			if (pc == null) return;
 			pc.ThrowBack (hitScale);

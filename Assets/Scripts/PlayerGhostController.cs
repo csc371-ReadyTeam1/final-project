@@ -34,12 +34,14 @@ public class PlayerGhostController : Pawn
 	private Color greyedOut = new Color(0.7f, 0.7f, 0.7f, 0.5f);
     private float goalPos = 0.5f; //Between 0 and 1
     private float curPos;
-	public int numBullets = 3;
+	public int numBullets = 5;
 	private int bulletIndex = 0;
 	private float coolTime = 3.0f;
 	private float timer = 0.0f;
 	private int weaponNum = 1;
 	public int numOfMissiles = 5;
+	private float time = 0.0f;
+	private float iPeriod = 7.5f;
 
     private float fireCooldown = 0;
     private bool isCoolingDown = false;
@@ -47,6 +49,16 @@ public class PlayerGhostController : Pawn
     //When the human is stunned, the ghost is able to 'take over' them
     private Vector2 altGoalPos;
     private Vector2 altCurPos;
+
+
+	public void increaseBulletCount()
+	{
+		if (numOfMissiles < 10) {
+			numOfMissiles++;
+			Debug.Log (numOfMissiles);
+		}
+	}
+
 
 	// Use this for initialization
 	void Start () {
@@ -213,27 +225,31 @@ public class PlayerGhostController : Pawn
         else
         {
             performMovement();
-        }
-
-
-        
+        }    
 
         Vector2 normalPos = Vector2.Lerp(from, to, curPos);
         Vector2 altPos = Camera.main.ViewportToWorldPoint(altGoalPos);
         Vector2 actualPos = GameController.instance.IsHumanStunned() ? altPos : normalPos;
 
+		time += Time.deltaTime;
+		if (time >= iPeriod) {
+			time = time - iPeriod;
+			increaseBulletCount ();
+		}
 
 
 
         //Actually set the world position of the ghost
         transform.position = actualPos;
     }
+		
 
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (Controller == null) return;
 
         var ply = coll.gameObject.GetComponent<PlayerPlatformerController>();
+
         if (ply != null && ply.IsStunned())
         {
             GameController.instance.SwitchPlayers();

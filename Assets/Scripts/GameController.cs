@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public enum GameState
 {
@@ -56,6 +57,8 @@ public class GameController : MonoBehaviour {
 
     private void Awake()
     {
+        TransitionManager.Get().FadeIn(1.0f);
+
         State = GameState.WAITING_FOR_PLAYERS;
         if (instance == null)
         {
@@ -191,7 +194,7 @@ public class GameController : MonoBehaviour {
     public void RestartLevel()
     {
         PlayersSwitched = !PlayersSwitched;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        TransitionManager.Get().TransitionTo(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>
@@ -225,6 +228,14 @@ public class GameController : MonoBehaviour {
         State = GameState.MINIGAME;
     }
 
+    private IEnumerator InvokeRealtime(UnityAction action, float realSeconds)
+    {
+        if (action == null) yield return null;
+
+        yield return new WaitForSecondsRealtime(realSeconds);
+        action();
+    }
+
     public void Finish(PlayerController winner)
     {
         State = GameState.GAMEOVER;
@@ -233,8 +244,11 @@ public class GameController : MonoBehaviour {
         winText.color = winner.PlayerColor;
         winText.gameObject.SetActive(true);
 
+        //Freeze the game, stop music
+        Time.timeScale = 0;
+
         //Restart the level in 5 seconds with the players switched
-        Invoke("RestartLevel", 5.0f);
+        StartCoroutine(InvokeRealtime(RestartLevel, 5.0f));
     }
 	
 	// Update is called once per frame

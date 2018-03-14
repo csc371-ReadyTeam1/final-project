@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class CameraParallax : MonoBehaviour {
 
+    /// <summary>
+    /// Constant movement to be applied to the background, even without camera movement
+    /// </summary>
+    public float constantSpeed = 0.0f;
+
+    /// <summary>
+    /// How much camera movement affects the parallax
+    /// </summary>
+    public float cameraMoveScale = 0.4f;
+
     private SpriteRenderer[] layers;
 
 	// Use this for initialization
@@ -32,7 +42,8 @@ public class CameraParallax : MonoBehaviour {
             float spriteWidth = sprite.transform.localScale.x * sprite.size.x;
 
             //Determines the 'virtual' movement of this layer
-            float offset = Camera.main.transform.position.x * 0.5f * i * 0.4f;
+            float camX = Camera.main.transform.position.x + constantSpeed * Time.time;
+            float offset = camX * 0.5f * i * cameraMoveScale;
 
             //Loop back on itself at half the sprite's width, around the center
             offset = offset % (spriteWidth * 0.5f);

@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 249793330896033648}
   m_Layer: 10
   m_Name: GhostBullet
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
