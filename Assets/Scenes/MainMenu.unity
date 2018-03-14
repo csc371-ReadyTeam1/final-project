@@ -951,10 +951,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8632c8262636594e86adbbefbda16cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartDelay: 1
   InputWaitDelay: 5
+  FadeInTime: 4
   SceneName: TestScene2
-  FadeTexture: {fileID: 2800000, guid: df16037821e66de4a987e959ab257549, type: 3}
 --- !u!4 &370100388
 Transform:
   m_ObjectHideFlags: 0
