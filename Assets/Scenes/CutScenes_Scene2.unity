@@ -1329,7 +1329,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 233574336}
-  m_LocalRotation: {x: -0.029614674, y: -0.034476224, z: -0.0010220662, w: 0.99896616}
+  m_LocalRotation: {x: -0.02960516, y: -0.03447671, z: -0.0010217521, w: 0.99896646}
   m_LocalPosition: {x: -0.7, y: 0, z: -5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1573,7 +1573,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295778455}
-  m_LocalRotation: {x: -0.015763542, y: 0.04771006, z: 0.00075300096, w: 0.99873656}
+  m_LocalRotation: {x: -0.015749676, y: 0.047709964, z: 0.00075233483, w: 0.9987368}
   m_LocalPosition: {x: 2.2518983, y: -0.689864, z: -21.00667}
   m_LocalScale: {x: 4.32, y: 2.0716636, z: 2.0716636}
   m_Children:
@@ -2095,7 +2095,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 455923182}
-  m_LocalRotation: {x: -0.015763542, y: 0.04771006, z: 0.00075300096, w: 0.99873656}
+  m_LocalRotation: {x: -0.015749676, y: 0.047709964, z: 0.00075233483, w: 0.9987368}
   m_LocalPosition: {x: 0, y: 0, z: -10.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6091,7 +6091,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1147881589}
-  m_LocalRotation: {x: -0.015763542, y: 0.04771006, z: 0.00075300096, w: 0.99873656}
+  m_LocalRotation: {x: -0.015749676, y: 0.047709964, z: 0.00075233483, w: 0.9987368}
   m_LocalPosition: {x: 0, y: 0, z: -10.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -37182,7 +37182,9 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 114154019257609354, guid: 64d417c6fe31c4596a7b7c3912399e73, type: 2}
     value: {fileID: 1147881590}
-  - key: {fileID: 114650442167598896, guid: 64d417c6fe31c4596a7b7c3912399e73, type: 2}
+  - key: {fileID: 0}
+    value: {fileID: 224258696}
+  - key: {fileID: 114547455004164016, guid: 64d417c6fe31c4596a7b7c3912399e73, type: 2}
     value: {fileID: 224258696}
   m_ExposedReferences:
     m_References:
