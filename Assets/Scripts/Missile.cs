@@ -59,7 +59,10 @@ public class Missile : MonoBehaviour {
 		if (collision.CompareTag("Player")) {
 			Debug.Log("shield fail");
 			//if (pc == null) return;
+			// Added Explosion instatiation for missile - AB
 			Instantiate (explosion, transform.position, Quaternion.Euler (0, 0, 0));
+			// Explosion gameObject terminated in Inspector 
+			//Destroy(explosion); 
 			pc.ThrowBack (hitScale);
             pc.Stun(hitScale);
 			Destroy (gameObject);

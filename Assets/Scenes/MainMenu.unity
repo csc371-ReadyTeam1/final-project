@@ -953,7 +953,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InputWaitDelay: 5
   FadeInTime: 4
-  SceneName: TestScene2
+  SceneName: CutScenes_Scene2
 --- !u!4 &370100388
 Transform:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class PlayerPlatformerController : Pawn
     public float jumpUpForce = 1.0f; //Additional force to apply while jump button held down
     public float friction = 0.83f;
 
+	// ShielfFull not used, half shielf uses full colllider - AB
 	public GameObject ShieldPrefab;
 	public GameObject ShieldFull;
 

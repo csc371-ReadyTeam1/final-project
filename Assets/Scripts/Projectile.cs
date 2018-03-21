@@ -46,6 +46,7 @@ public class Projectile : MonoBehaviour {
 		}else{
 			if (pc == null) return;
 			pc.ThrowBack (hitScale);
+			// Explosion Animation. Instance of Explosion destroyed with Inspector setting - AB
 			Instantiate (explosion, transform.position, Quaternion.Euler (0, 0, 0));
 			Destroy (gameObject);
 		} 

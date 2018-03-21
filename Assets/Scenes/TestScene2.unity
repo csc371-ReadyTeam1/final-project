@@ -5029,7 +5029,7 @@ Prefab:
         type: 2}
     - target: {fileID: 4935961675623550, guid: 3a4feb026e3b1654fa5287d4e7a17270, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.1840568
+      value: -2.1280904
       objectReference: {fileID: 0}
     - target: {fileID: 212999446840934180, guid: 3a4feb026e3b1654fa5287d4e7a17270,
         type: 2}
@@ -6402,6 +6402,7 @@ GameObject:
   - component: {fileID: 1594452769}
   - component: {fileID: 1594452773}
   - component: {fileID: 1594452768}
+  - component: {fileID: 1594452774}
   m_Layer: 9
   m_Name: Tilemap
   m_TagString: Untagged
@@ -33902,6 +33903,24 @@ EdgeCollider2D:
   m_Points:
   - {x: 29.451843, y: 2.0758693}
   - {x: 30.888184, y: 2.0822756}
+--- !u!68 &1594452774
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1594452766}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 47.72295, y: 6.074784}
+  - {x: 47.752472, y: 8.849878}
+  - {x: 47.634872, y: 0.18444723}
 --- !u!4 &1606727652 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4931001233121808, guid: b9e167e31f640b34f87caab122fca598,
