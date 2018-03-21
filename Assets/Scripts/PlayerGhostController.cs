@@ -32,6 +32,7 @@ public class PlayerGhostController : Pawn
 	//private GameObject[] chargedBullets;
 	private GameObject[] canvasBullets;
 	private GameObject[] canvasMissiles;
+	private int maxNumOfMissiles = 10;
 	private Color ogColor;
 	private Color greyedOut = new Color(0.7f, 0.7f, 0.7f, 0.5f);
     private float goalPos = 0.5f; //Between 0 and 1
@@ -79,6 +80,18 @@ public class PlayerGhostController : Pawn
 		canvasBullets [8] = GameObject.Find ("bullet9");
 		canvasBullets [9] = GameObject.Find ("bullet10");
 
+		canvasMissiles = new GameObject[10];
+		canvasMissiles [0] = GameObject.Find ("missile1");
+		canvasMissiles [1] = GameObject.Find ("missile2");
+		canvasMissiles [2] = GameObject.Find ("missile3");
+		canvasMissiles [3] = GameObject.Find ("missile4");
+		canvasMissiles [4] = GameObject.Find ("missile5");
+		canvasMissiles [5] = GameObject.Find ("missile6");
+		canvasMissiles [6] = GameObject.Find ("missile7");
+		canvasMissiles [7] = GameObject.Find ("missile8");
+		canvasMissiles [8] = GameObject.Find ("missile9");
+		canvasMissiles [9] = GameObject.Find ("missile10");
+
 
 
 		missileImage.SetActive (false);
@@ -89,6 +102,10 @@ public class PlayerGhostController : Pawn
 			//bulletPos.y = bulletPos.y - 0.1f;
 			canvasBullets [9 - i].SetActive (false);
 			//chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
+		}
+
+		for (int i = 0; i < maxNumOfMissiles-numOfMissiles; i++) {
+			canvasMissiles [9 - i].SetActive (false);
 		}
 
 		// Saving color of first bullet for reference when reloading
@@ -210,6 +227,7 @@ public class PlayerGhostController : Pawn
 			} else if (weaponNum == 2 && numOfMissiles > 0) { //Homing missiles
 				Instantiate (HomingPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 				numOfMissiles--;
+				canvasMissiles [numOfMissiles].SetActive (false);
 			}
         }
 
