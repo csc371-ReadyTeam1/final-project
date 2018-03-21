@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class CutsceneSelectionByTime : MonoBehaviour {
 
-
+	/* Initial Contribution by Scott Kaulker from MenuController Script, Changes to original by Alexander Bohlen*/
 	/// <summary>
 	/// How long to wait before we start accepting input
 	/// </summary>
@@ -33,7 +33,7 @@ public class CutsceneSelectionByTime : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-
+		// Changes by Alexander Bohlen
 		//#TODO: Abstract the controller creation to not require gamemode logic
 		if ( Time.time - startTime > InputWaitDelay)
 		{

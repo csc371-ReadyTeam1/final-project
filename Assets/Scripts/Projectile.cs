@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour {
 		}
     }
 
-    /* Contributors: Scott Kauker, Megan Washburn */
+    /* Contributors: Scott Kauker, Megan Washburn , Alexander Bohlen*/
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();

@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class MovingPlatformController2D : MonoBehaviour {
 
 
-
+	// Collection of Code from 2D Platform Controller, combined for moving platforms
+	/* Merging of code Contribution by Alexander Bohlen. Not used in final */
 	// From RaycastController.cs
 	public LayerMask collisionMask;
 
