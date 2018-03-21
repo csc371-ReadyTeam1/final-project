@@ -28,6 +28,7 @@ public class Checkpoint : MonoBehaviour {
     private Mesh circleMesh; //Mesh for the 'progress' semicircle
 
     // Use this for initialization
+    /* Contributors: Scott Kauker */
     void Start () {
         render = GetComponent<SpriteRenderer>();
         activateSrc = GetComponent<AudioSource>();
@@ -37,7 +38,7 @@ public class Checkpoint : MonoBehaviour {
 		    ShopCanvas.SetActive (false);
     }
 
-
+    /* Contributors: Scott Kauker */
     private List<int> indices = new List<int>();
     private List<Vector3> vertices = new List<Vector3>();
     void regenerateMesh(float percent, float size, int numPoints)
@@ -80,6 +81,7 @@ public class Checkpoint : MonoBehaviour {
         circleMesh.SetVertices(vertices);
     }
 
+    /* Contributors: Scott Kauker */
     void checkOwnership()
     {
         if (currentCapturer == null) { return; }
@@ -97,9 +99,10 @@ public class Checkpoint : MonoBehaviour {
     {
         return new Color(c.r, c.g, c.b, a);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void Update ()
     {
         Graphics.DrawMesh(circleMesh, transform.position + new Vector3(0, 0, -0.5f), transform.rotation, circleMaterial, 10);
         if (currentCapturer == null || isCaptured) return;
@@ -125,6 +128,7 @@ public class Checkpoint : MonoBehaviour {
         }
     }
 
+    /* Contributors: Scott Kauker */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Pawn pawn = collision.gameObject.GetComponent<Pawn>();
@@ -135,6 +139,7 @@ public class Checkpoint : MonoBehaviour {
 
     }
 
+    /* Contributors: Scott Kauker */
     private void OnTriggerExit2D(Collider2D collision)
     {
         Pawn pawn = collision.gameObject.GetComponent<Pawn>();
@@ -145,6 +150,7 @@ public class Checkpoint : MonoBehaviour {
         }
     }
 
+    /* Contributors: Scott Kauker */
     public void Capture(PlayerController capturer)
     {
         render.sprite = CapturedSprite;

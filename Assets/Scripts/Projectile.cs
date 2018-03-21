@@ -21,12 +21,14 @@ public class Projectile : MonoBehaviour {
 	public GameObject explosion;
 	private GameObject ghost;
 
-	void Start() {
+    /* Contributors: Scott Kauker */
+    void Start() {
 		body = GetComponent<Rigidbody2D> ();
 	}
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void Update () {
 		this.transform.position += this.transform.up * Time.deltaTime * speed;
 
 		lifeTime -= Time.deltaTime;
@@ -35,6 +37,7 @@ public class Projectile : MonoBehaviour {
 		}
     }
 
+    /* Contributors: Scott Kauker */
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();

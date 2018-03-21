@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour {
     /// </summary>
     public GameState State { get; private set; }
 
+    /* Contributors: Scott Kauker */
     private void Awake()
     {
         TransitionManager.Get().FadeIn(1.0f);
@@ -71,6 +72,7 @@ public class GameController : MonoBehaviour {
     }
 
     // Use this for initialization
+    /* Contributors: Scott Kauker */
     void Start () {
         SetupPlayers(); //Spawns the player controllers
 
@@ -90,6 +92,7 @@ public class GameController : MonoBehaviour {
     //This can be done by detecting which input index a key is pressed from, 
     //and creating/assigning a player controller to that index until all slots (2) are filled
     //For now, we just assume player 1 is index 1, and player 2 is index 2
+    /* Contributors: Scott Kauker */
     void SetupPlayers()
     {
         PlayerController pc1 = AddPlayer();
@@ -116,6 +119,7 @@ public class GameController : MonoBehaviour {
     /// In the beginning of the game, there's a minigame to decide who controls the platformer
     /// Spawn the temporary ghosts which will decide who will win
     /// </summary>
+    /* Contributors: Scott Kauker */
     void SpawnStartGhosts()
     {
         Vector3 centerPos = platformer.transform.position;
@@ -138,6 +142,7 @@ public class GameController : MonoBehaviour {
     /// This immediately switches the bodies they are in, no matter what they are
     /// This affects their input controls and their role in the game
     /// </summary>
+    /* Contributors: Scott Kauker */
     public void SwitchPlayers()
     {
         Pawn pghost = ghost;
@@ -153,6 +158,7 @@ public class GameController : MonoBehaviour {
     /// Returns true if the human character is currently stunned and cannot move.
     /// </summary>
     /// <returns></returns>
+    /* Contributors: Scott Kauker */
     public bool IsHumanStunned()
     {
         return platformer.GetComponent<PlayerPlatformerController>().IsStunned();
@@ -163,6 +169,7 @@ public class GameController : MonoBehaviour {
     /// This is used to determine which player should initially be in the human body
     /// </summary>
     /// <param name="pc"></param>
+    /* Contributors: Scott Kauker */
     public void WinMinigame(PlayerController pc)
     {
         if (State != GameState.MINIGAME) return;
@@ -191,6 +198,7 @@ public class GameController : MonoBehaviour {
     /// Immediately restart the current level. 
     /// Resets all objects and controls
     /// </summary>
+    /* Contributors: Scott Kauker */
     public void RestartLevel()
     {
         PlayersSwitched = !PlayersSwitched;
@@ -202,6 +210,7 @@ public class GameController : MonoBehaviour {
     /// These objects provide the interface between the player and the object they'd like to control
     /// </summary>
     /// <returns>The newly created PlayerController object</returns>
+    /* Contributors: Scott Kauker */
     PlayerController AddPlayer()
     {
         PlayerController pc = gameObject.AddComponent<PlayerController>();
@@ -217,17 +226,20 @@ public class GameController : MonoBehaviour {
     /// </summary>
     /// <param name="pc">The first player controller to get the enemy of</param>
     /// <returns>The "other" player controller.</returns>
+    /* Contributors: Scott Kauker */
     public PlayerController GetOther(PlayerController pc)
     {
         return pc == players[0] ? players[1] : players[0];
     }
 
+    /* Contributors: Scott Kauker */
     public void StartGame()
     {
         //curTimeLeft = timeLimit;
         State = GameState.MINIGAME;
     }
 
+    /* Contributors: Scott Kauker */
     private IEnumerator InvokeRealtime(UnityAction action, float realSeconds)
     {
         if (action == null) yield return null;
@@ -236,6 +248,7 @@ public class GameController : MonoBehaviour {
         action();
     }
 
+    /* Contributors: Scott Kauker */
     public void Finish(PlayerController winner)
     {
         State = GameState.GAMEOVER;
@@ -250,9 +263,10 @@ public class GameController : MonoBehaviour {
         //Restart the level in 5 seconds with the players switched
         StartCoroutine(InvokeRealtime(RestartLevel, 5.0f));
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void Update () {
 
         //Countdown to game start
         if (State == GameState.WAITING_FOR_PLAYERS)

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 //Player controllers can be attached to a 'pawn' (or game object) to provide input into it
 //This allows to easily switching player inputs between different objects
 //(Such as switching between the ghost and platformer)
+/* Contributors: Scott Kauker */
 public class PlayerController : MonoBehaviour {
 
     /// <summary>
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 
     //Tell this player controller to 'control' a specific pawn
     //This is like saying "Player 1, start controlling the ghost pawn"
+    /* Contributors: Scott Kauker */
     public void Possess(Pawn p)
     {
         //If they were already controlling something, unpossess it
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour {
     //In our project, we have a bunch of different ways to receive input, and each 
     //way is prefixed with a PN_. For example, "P0_" are inputs from WASD/keybaord, and
     //P3_ could be inputs from a gamepad. This index specifies which one of those inputs to use.
+    /* Contributors: Scott Kauker */
     public void SetInputIndex(int idx)
     {
         InputIdx = idx;
@@ -68,30 +71,35 @@ public class PlayerController : MonoBehaviour {
     }
 
     //Given an action name, get the full unity input name we'll get input from
+    /* Contributors: Scott Kauker */
     private string getInputName(string action)
     {
         return InputIdxStr + action;
     }
 
     //Return the value of the virtual axis identified by axisname
+    /* Contributors: Scott Kauker */
     public float GetAxis(string axis)
     {
         return Input.GetAxis(getInputName(axis));
     }
 
     //Return the value of the virtual axis identified by axisname with no smoothing filter applied
+    /* Contributors: Scott Kauker */
     public float GetAxisRaw(string axis)
     {
         return Input.GetAxisRaw(getInputName(axis));
     }
 
     //Return true during the frame the user pressed down the virtual button identified by buttonName
+    /* Contributors: Scott Kauker */
     public bool GetButtonDown(string buttonName)
     {
         return Input.GetButtonDown(getInputName(buttonName));
     }
 
     //Return true while the virtual button identifed by buttonName is held down
+    /* Contributors: Scott Kauker */
     public bool GetButton(string buttonName)
     {
         return Input.GetButton(getInputName(buttonName));
@@ -101,10 +109,12 @@ public class PlayerController : MonoBehaviour {
 
 //Base class for a controllable 'pawn'
 //Pawns receive input from the player controller and act on it
+/* Contributors: Scott Kauker */
 public class Pawn : MonoBehaviour
 {
     public PlayerController Controller { get; private set; }
 
+    /* Contributors: Scott Kauker */
     public void SetController(PlayerController pc)
     {
         if (Controller)

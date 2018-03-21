@@ -63,8 +63,9 @@ public class PlayerGhostController : Pawn
 	}
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    /* Contributors: Scott Kauker */
+    void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
 
@@ -118,6 +119,7 @@ public class PlayerGhostController : Pawn
     /// <summary>
     /// When a player possesses this pawn, we want to set the color of the game object to match their color
     /// </summary>
+    /* Contributors: Scott Kauker */
     public override void OnPossessed()
     {
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
@@ -128,6 +130,7 @@ public class PlayerGhostController : Pawn
         nametag.SetColor(Controller.PlayerColor);
     }
 
+    /* Contributors: Scott Kauker */
     private void Instance_OnHumanStunned()
     {
         altGoalPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -162,18 +165,21 @@ public class PlayerGhostController : Pawn
     //A better framerate-aware smooth lerp function.
     // Different from Vector3.SmoothDamp() since that has stuttering issues
     //#TODO: Function library?
+    /* Contributors: Scott Kauker */
     private float Damp(float a, float b, float smoothing, float dt)
     {
         return Mathf.Lerp(a, b, 1 - Mathf.Pow(smoothing, dt));
     }
 
+    /* Contributors: Scott Kauker */
     private Vector2 Damp(Vector2 a, Vector2 b, float smoothing, float dt)
     {
         return new Vector2(Damp(a.x, b.x, smoothing, dt),
             Damp(a.y, b.y, smoothing, dt));
     }
 
-	IEnumerator Cooldown() {
+    /* Contributors: Scott Kauker */
+    IEnumerator Cooldown() {
         if (isCoolingDown) yield break;
 
         isCoolingDown = true;
@@ -184,6 +190,7 @@ public class PlayerGhostController : Pawn
 		bulletIndex = 0;
 	}
 
+    /* Contributors: Scott Kauker */
     void performMovement()
     {
 		
@@ -236,9 +243,10 @@ public class PlayerGhostController : Pawn
 		} else
 			orb.onWeapon3 = false;
     }
-    
+
     //The second movement mode of the ghost, when they are able to take over the human
     //This allows 2D movement across the screen
+    /* Contributors: Scott Kauker */
     void performAltMovement()
     {
         altGoalPos.x += Controller.GetAxisRaw("Horizontal") * MoveSpeed;
@@ -250,9 +258,10 @@ public class PlayerGhostController : Pawn
         //Move the relative position
         altCurPos = Damp(altCurPos, altGoalPos, SmoothTime, Time.deltaTime);
     }
-	
-	// Update is called once per frame
-	void LateUpdate () {
+
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void LateUpdate () {
         if (Controller == null) return;
         //Update goal pos
         if (GameController.instance.IsHumanStunned())
@@ -279,8 +288,8 @@ public class PlayerGhostController : Pawn
         //Actually set the world position of the ghost
         transform.position = actualPos;
     }
-		
 
+    /* Contributors: Scott Kauker */
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (Controller == null) return;
