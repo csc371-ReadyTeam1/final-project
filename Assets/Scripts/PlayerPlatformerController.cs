@@ -109,7 +109,7 @@ public class PlayerPlatformerController : Pawn
         return stunResetTime > 0;
     }
 
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Megan Washburn */
     private void Update()
     {
         if (Controller == null) return;

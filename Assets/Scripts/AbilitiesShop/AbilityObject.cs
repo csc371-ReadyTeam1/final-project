@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Contributors: Megan Washburn */
 [System.Serializable]
 public class AbilityObject : ScriptableObject {
 

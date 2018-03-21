@@ -12,17 +12,20 @@ public class BulletCountdown : MonoBehaviour {
 	private float goalPos = 0;
 	private float curPos;
 
+	/* Contributors: Megan Washburn */
 	private float Damp(float a, float b, float smoothing, float dt)
 	{
 		return Mathf.Lerp(a, b, 1 - Mathf.Pow(smoothing, dt));
 	}
 
+	/* Contributors: Megan Washburn */
 	void performMovement()
 	{
 		goalPos += Input.GetAxis ("P2_Vertical");
 		goalPos = Mathf.Clamp (goalPos, 0, 1);
 	}
 
+	/* Contributors: Megan Washburn */
 	void LateUpdate () {
 		//Update edge points
 		from = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f));

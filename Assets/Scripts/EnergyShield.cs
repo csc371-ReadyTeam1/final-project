@@ -8,11 +8,13 @@ public class EnergyShield : MonoBehaviour {
 
 	private Vector3 offset = new Vector3 (0.15f, 0.05f);
 
+	/* Contributors: Megan Washburn */
 	void Start() {
 		this.transform.position += offset;
 	}
 
 	// Update is called once per frame
+	/* Contributors: Megan Washburn */
 	void Update () {
 		//this.transform.position = move with player...
 
@@ -22,6 +24,7 @@ public class EnergyShield : MonoBehaviour {
 		}
 	}
 
+	/* Contributors: Megan Washburn */
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Projectile p = collision.gameObject.GetComponent<Projectile>();

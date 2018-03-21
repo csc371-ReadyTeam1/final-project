@@ -28,7 +28,7 @@ public class Checkpoint : MonoBehaviour {
     private Mesh circleMesh; //Mesh for the 'progress' semicircle
 
     // Use this for initialization
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Megan Washburn */
     void Start () {
         render = GetComponent<SpriteRenderer>();
         activateSrc = GetComponent<AudioSource>();
@@ -170,12 +170,14 @@ public class Checkpoint : MonoBehaviour {
         }
     }
 
+	/* Contributors: Megan Washburn */
 	void OpenShop()
 	{
 		ShopCanvas.SetActive (true);
 		Time.timeScale = 0;
 	}
 
+	/* Contributors: Megan Washburn */
 	public void CloseShop()
 	{
 		ShopCanvas.SetActive (false);

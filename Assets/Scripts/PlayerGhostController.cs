@@ -64,7 +64,7 @@ public class PlayerGhostController : Pawn
 
 
     // Use this for initialization
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Megan Washburn */
     void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
@@ -137,6 +137,7 @@ public class PlayerGhostController : Pawn
         altCurPos = altGoalPos;
     }
 
+	/* Contributors: Megan Washburn */
     private void reloadBullets() {
 		SoundManager.instance.PlaySingle (reloadSound);
 
@@ -178,7 +179,7 @@ public class PlayerGhostController : Pawn
             Damp(a.y, b.y, smoothing, dt));
     }
 
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Megan Washburn */
     IEnumerator Cooldown() {
         if (isCoolingDown) yield break;
 
@@ -190,7 +191,7 @@ public class PlayerGhostController : Pawn
 		bulletIndex = 0;
 	}
 
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Megan Washburn */
     void performMovement()
     {
 		
