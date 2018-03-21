@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/* Contributors: Jin Young Jeong */
 [RequireComponent(typeof(Rigidbody2D))]
 public class Missile : MonoBehaviour {
 
@@ -24,6 +25,7 @@ public class Missile : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 	}
 
+	/* Contributors: Jin Young Jeong */
 	// Update is called once per frame
 	void Update () {
 		Vector3 pos = GameObject.FindGameObjectWithTag ("Player").transform.position;
@@ -45,6 +47,8 @@ public class Missile : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+	/* Contributors: Jin Young Jeong */
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		PlayerPlatformerController pc = collision.gameObject.GetComponent<PlayerPlatformerController>();

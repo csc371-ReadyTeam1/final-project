@@ -109,7 +109,7 @@ public class PlayerPlatformerController : Pawn
         return stunResetTime > 0;
     }
 
-    /* Contributors: Scott Kauker, Megan Washburn */
+    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong */
     private void Update()
     {
         if (Controller == null) return;
@@ -162,7 +162,7 @@ public class PlayerPlatformerController : Pawn
         stunResetTime = 0;
     }
 
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Jin Young Jeong */
     public void ThrowBack(float hitScale)
     {
         bool onGround = IsOnGround();
@@ -188,7 +188,7 @@ public class PlayerPlatformerController : Pawn
         }
     }
 
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Jin Young Jeong */
     public void Stun(float hitTime)
 	{
         //Activate stun mode, delay by hitTime

@@ -25,7 +25,7 @@ public class BulletCountdown : MonoBehaviour {
 		goalPos = Mathf.Clamp (goalPos, 0, 1);
 	}
 
-	/* Contributors: Megan Washburn */
+	/* Contributors: Megan Washburn, Jin Young Jeong */
 	void LateUpdate () {
 		//Update edge points
 		from = Camera.main.ViewportToWorldPoint(new Vector3(0.95f, 0.95f));

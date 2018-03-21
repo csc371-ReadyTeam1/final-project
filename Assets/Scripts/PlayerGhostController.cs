@@ -54,6 +54,7 @@ public class PlayerGhostController : Pawn
     private Vector2 altCurPos;
 
 
+	/* Contributors: Jin Young Jeong */
 	public void increaseBulletCount()
 	{
 		if (numOfMissiles < 10) {
@@ -64,7 +65,7 @@ public class PlayerGhostController : Pawn
 
 
     // Use this for initialization
-    /* Contributors: Scott Kauker, Megan Washburn */
+    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong */
     void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
@@ -147,6 +148,7 @@ public class PlayerGhostController : Pawn
 		}
 	}
 
+	/* Contributors: Jin Young Jeong */
 	// Simple weapon switching function. As we add more weapons just increase the num!
 	// For now,
 	// Weapon 1: Regular gun/bullet
@@ -191,7 +193,7 @@ public class PlayerGhostController : Pawn
 		bulletIndex = 0;
 	}
 
-    /* Contributors: Scott Kauker, Megan Washburn */
+    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong */
     void performMovement()
     {
 		
@@ -247,7 +249,7 @@ public class PlayerGhostController : Pawn
 
     //The second movement mode of the ghost, when they are able to take over the human
     //This allows 2D movement across the screen
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Jin Young Jeong */
     void performAltMovement()
     {
         altGoalPos.x += Controller.GetAxisRaw("Horizontal") * MoveSpeed;
@@ -290,7 +292,7 @@ public class PlayerGhostController : Pawn
         transform.position = actualPos;
     }
 
-    /* Contributors: Scott Kauker */
+    /* Contributors: Scott Kauker, Jin Young Jeong */
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (Controller == null) return;
