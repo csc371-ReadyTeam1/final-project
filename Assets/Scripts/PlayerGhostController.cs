@@ -29,7 +29,9 @@ public class PlayerGhostController : Pawn
 	public AudioClip reloadSound;
     public AudioClip bodySwitchSound;
 
-	private GameObject[] chargedBullets;
+	//private GameObject[] chargedBullets;
+	private GameObject[] canvasBullets;
+	private GameObject[] canvasMissiles;
 	private Color ogColor;
 	private Color greyedOut = new Color(0.7f, 0.7f, 0.7f, 0.5f);
     private float goalPos = 0.5f; //Between 0 and 1
@@ -64,18 +66,33 @@ public class PlayerGhostController : Pawn
 	void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
+
+		canvasBullets = new GameObject[10];
+		canvasBullets [0] = GameObject.Find ("bullet1");
+		canvasBullets [1] = GameObject.Find ("bullet2");
+		canvasBullets [2] = GameObject.Find ("bullet3");
+		canvasBullets [3] = GameObject.Find ("bullet4");
+		canvasBullets [4] = GameObject.Find ("bullet5");
+		canvasBullets [5] = GameObject.Find ("bullet6");
+		canvasBullets [6] = GameObject.Find ("bullet7");
+		canvasBullets [7] = GameObject.Find ("bullet8");
+		canvasBullets [8] = GameObject.Find ("bullet9");
+		canvasBullets [9] = GameObject.Find ("bullet10");
+
+
+
 		missileImage.SetActive (false);
-		chargedBullets = new GameObject[numBullets];
+		//chargedBullets = new GameObject[numBullets];
 		Vector3 bulletPos = new Vector3 (2.5f, 1.95f);
 
 		for (int i = 0; i < numBullets; i++) {
-			bulletPos.y = bulletPos.y - 0.1f;
-
-			chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
+			//bulletPos.y = bulletPos.y - 0.1f;
+			canvasBullets [9 - i].SetActive (false);
+			//chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
 		}
 
 		// Saving color of first bullet for reference when reloading
-		ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
+		//ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
 
         //Hook into when the human player is stunned (letting the ghost take over)
         GameController.instance.OnHumanStunned += Instance_OnHumanStunned;
@@ -104,7 +121,8 @@ public class PlayerGhostController : Pawn
 		SoundManager.instance.PlaySingle (reloadSound);
 
 		for (int i = 0; i < numBullets; i++) {
-			chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+			//chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+			canvasBullets [i].SetActive(true);
 		}
 	}
 
@@ -180,7 +198,8 @@ public class PlayerGhostController : Pawn
 				Instantiate (BulletPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 
 				// Show bullet was unloaded in stock; remove BulletCountdown
-				chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
+				//chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
+				canvasBullets [bulletIndex].SetActive(false);
 				bulletIndex++;
 
                 //Start reloading when it's the last shot
