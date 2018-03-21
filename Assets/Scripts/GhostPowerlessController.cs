@@ -21,14 +21,15 @@ public class GhostPowerlessController : Pawn {
 
     private ButtonState prevState = ButtonState.CENTER;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    /* Contributors: Scott Kauker */
+    void Start () {
         goalPos = Vector2.zero;
         startPos = transform.localPosition;
 
         
     }
-
+    /* Contributors: Scott Kauker */
     void AddProgress()
     {
         completedPerc += stepSize;
@@ -43,6 +44,7 @@ public class GhostPowerlessController : Pawn {
     /// <summary>
     /// When a player possesses this pawn, we want to set the color of the game object to match their color
     /// </summary>
+    /* Contributors: Scott Kauker */
     public override void OnPossessed()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -52,7 +54,7 @@ public class GhostPowerlessController : Pawn {
         nametag.SetText(Controller.Name);
         nametag.SetColor(Controller.PlayerColor);
     }
-
+    /* Contributors: Scott Kauker */
     private ButtonState GetButtonState()
     {
         float axis = Controller.GetAxisRaw("Horizontal");
@@ -60,9 +62,10 @@ public class GhostPowerlessController : Pawn {
         if (axis > 0) return ButtonState.RIGHT;
         return ButtonState.CENTER;
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void Update ()
     {
         //Don't allow input if we aren't in minigame mode
         if (GameController.instance.State != GameState.MINIGAME)

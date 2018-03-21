@@ -16,8 +16,9 @@ public class CameraParallax : MonoBehaviour {
 
     private SpriteRenderer[] layers;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    /* Contributors: Scott Kauker */
+    void Start () {
 
         layers = new SpriteRenderer[transform.childCount];
         int i = 0;
@@ -34,6 +35,7 @@ public class CameraParallax : MonoBehaviour {
 	}
 
     // Update is called once per frame
+    /* Contributors: Scott Kauker */
     void Update()
     {
         int i = 1;

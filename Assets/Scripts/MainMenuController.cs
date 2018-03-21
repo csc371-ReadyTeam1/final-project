@@ -24,14 +24,16 @@ public class MainMenuController : MonoBehaviour {
     private float startTime = 0.0f;
 
     // Use this for initialization
+    /* Contributors: Scott Kauker */
     void Start ()
     {
         startTime = Time.time;
         TransitionManager.Get().FadeIn(FadeInTime);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void Update ()
     {
 
 		//#TODO: Abstract the controller creation to not require gamemode logic

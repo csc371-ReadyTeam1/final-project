@@ -29,7 +29,10 @@ public class PlayerGhostController : Pawn
 	public AudioClip reloadSound;
     public AudioClip bodySwitchSound;
 
-	private GameObject[] chargedBullets;
+	//private GameObject[] chargedBullets;
+	private GameObject[] canvasBullets;
+	private GameObject[] canvasMissiles;
+	private int maxNumOfMissiles = 10;
 	private Color ogColor;
 	private Color greyedOut = new Color(0.7f, 0.7f, 0.7f, 0.5f);
     private float goalPos = 0.5f; //Between 0 and 1
@@ -60,22 +63,54 @@ public class PlayerGhostController : Pawn
 	}
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    /* Contributors: Scott Kauker */
+    void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
+
+		canvasBullets = new GameObject[10];
+		canvasBullets [0] = GameObject.Find ("bullet1");
+		canvasBullets [1] = GameObject.Find ("bullet2");
+		canvasBullets [2] = GameObject.Find ("bullet3");
+		canvasBullets [3] = GameObject.Find ("bullet4");
+		canvasBullets [4] = GameObject.Find ("bullet5");
+		canvasBullets [5] = GameObject.Find ("bullet6");
+		canvasBullets [6] = GameObject.Find ("bullet7");
+		canvasBullets [7] = GameObject.Find ("bullet8");
+		canvasBullets [8] = GameObject.Find ("bullet9");
+		canvasBullets [9] = GameObject.Find ("bullet10");
+
+		canvasMissiles = new GameObject[10];
+		canvasMissiles [0] = GameObject.Find ("missile1");
+		canvasMissiles [1] = GameObject.Find ("missile2");
+		canvasMissiles [2] = GameObject.Find ("missile3");
+		canvasMissiles [3] = GameObject.Find ("missile4");
+		canvasMissiles [4] = GameObject.Find ("missile5");
+		canvasMissiles [5] = GameObject.Find ("missile6");
+		canvasMissiles [6] = GameObject.Find ("missile7");
+		canvasMissiles [7] = GameObject.Find ("missile8");
+		canvasMissiles [8] = GameObject.Find ("missile9");
+		canvasMissiles [9] = GameObject.Find ("missile10");
+
+
+
 		missileImage.SetActive (false);
-		chargedBullets = new GameObject[numBullets];
+		//chargedBullets = new GameObject[numBullets];
 		Vector3 bulletPos = new Vector3 (2.5f, 1.95f);
 
 		for (int i = 0; i < numBullets; i++) {
-			bulletPos.y = bulletPos.y - 0.1f;
+			//bulletPos.y = bulletPos.y - 0.1f;
+			canvasBullets [9 - i].SetActive (false);
+			//chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
+		}
 
-			chargedBullets[i] = Instantiate (ChargedProjectile, bulletPos, Quaternion.Euler (0, 0, 90));
+		for (int i = 0; i < maxNumOfMissiles-numOfMissiles; i++) {
+			canvasMissiles [9 - i].SetActive (false);
 		}
 
 		// Saving color of first bullet for reference when reloading
-		ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
+		//ogColor = chargedBullets [bulletIndex].GetComponent<SpriteRenderer>().color;
 
         //Hook into when the human player is stunned (letting the ghost take over)
         GameController.instance.OnHumanStunned += Instance_OnHumanStunned;
@@ -84,6 +119,7 @@ public class PlayerGhostController : Pawn
     /// <summary>
     /// When a player possesses this pawn, we want to set the color of the game object to match their color
     /// </summary>
+    /* Contributors: Scott Kauker */
     public override void OnPossessed()
     {
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
@@ -94,6 +130,7 @@ public class PlayerGhostController : Pawn
         nametag.SetColor(Controller.PlayerColor);
     }
 
+    /* Contributors: Scott Kauker */
     private void Instance_OnHumanStunned()
     {
         altGoalPos = Camera.main.WorldToViewportPoint(transform.position);
@@ -104,7 +141,8 @@ public class PlayerGhostController : Pawn
 		SoundManager.instance.PlaySingle (reloadSound);
 
 		for (int i = 0; i < numBullets; i++) {
-			chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+			//chargedBullets [i].GetComponent<SpriteRenderer>().color = ogColor;
+			canvasBullets [i].SetActive(true);
 		}
 	}
 
@@ -127,18 +165,21 @@ public class PlayerGhostController : Pawn
     //A better framerate-aware smooth lerp function.
     // Different from Vector3.SmoothDamp() since that has stuttering issues
     //#TODO: Function library?
+    /* Contributors: Scott Kauker */
     private float Damp(float a, float b, float smoothing, float dt)
     {
         return Mathf.Lerp(a, b, 1 - Mathf.Pow(smoothing, dt));
     }
 
+    /* Contributors: Scott Kauker */
     private Vector2 Damp(Vector2 a, Vector2 b, float smoothing, float dt)
     {
         return new Vector2(Damp(a.x, b.x, smoothing, dt),
             Damp(a.y, b.y, smoothing, dt));
     }
 
-	IEnumerator Cooldown() {
+    /* Contributors: Scott Kauker */
+    IEnumerator Cooldown() {
         if (isCoolingDown) yield break;
 
         isCoolingDown = true;
@@ -149,6 +190,7 @@ public class PlayerGhostController : Pawn
 		bulletIndex = 0;
 	}
 
+    /* Contributors: Scott Kauker */
     void performMovement()
     {
 		
@@ -180,7 +222,8 @@ public class PlayerGhostController : Pawn
 				Instantiate (BulletPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 
 				// Show bullet was unloaded in stock; remove BulletCountdown
-				chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
+				//chargedBullets [bulletIndex].GetComponent<SpriteRenderer> ().color = greyedOut;
+				canvasBullets [bulletIndex].SetActive(false);
 				bulletIndex++;
 
                 //Start reloading when it's the last shot
@@ -191,6 +234,7 @@ public class PlayerGhostController : Pawn
 			} else if (weaponNum == 2 && numOfMissiles > 0) { //Homing missiles
 				Instantiate (HomingPrefab, transform.position, Quaternion.Euler (0, 0, 90));
 				numOfMissiles--;
+				canvasMissiles [numOfMissiles].SetActive (false);
 			}
         }
 
@@ -199,9 +243,10 @@ public class PlayerGhostController : Pawn
 		} else
 			orb.onWeapon3 = false;
     }
-    
+
     //The second movement mode of the ghost, when they are able to take over the human
     //This allows 2D movement across the screen
+    /* Contributors: Scott Kauker */
     void performAltMovement()
     {
         altGoalPos.x += Controller.GetAxisRaw("Horizontal") * MoveSpeed;
@@ -213,9 +258,10 @@ public class PlayerGhostController : Pawn
         //Move the relative position
         altCurPos = Damp(altCurPos, altGoalPos, SmoothTime, Time.deltaTime);
     }
-	
-	// Update is called once per frame
-	void LateUpdate () {
+
+    // Update is called once per frame
+    /* Contributors: Scott Kauker */
+    void LateUpdate () {
         if (Controller == null) return;
         //Update goal pos
         if (GameController.instance.IsHumanStunned())
@@ -242,8 +288,8 @@ public class PlayerGhostController : Pawn
         //Actually set the world position of the ghost
         transform.position = actualPos;
     }
-		
 
+    /* Contributors: Scott Kauker */
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (Controller == null) return;

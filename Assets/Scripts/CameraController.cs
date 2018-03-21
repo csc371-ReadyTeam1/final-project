@@ -17,6 +17,7 @@ public class CameraController : CinemachineExtension
     //private Vector3 lastPos;
 
     // Use this for initialization
+    /* Contributors: Scott Kauker */
     void Start ()
     {
         //offset = transform.position;
@@ -66,6 +67,7 @@ public class CameraController : CinemachineExtension
     /// <param name="stage"></param>
     /// <param name="state"></param>
     /// <param name="deltaTime"></param>
+    /* Contributors: Scott Kauker */
     protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam,
         CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
     {
@@ -78,6 +80,7 @@ public class CameraController : CinemachineExtension
         state.PositionCorrection += shakeOffset;
     }
 
+    /* Contributors: Scott Kauker */
     public void ShakeScreen(float intensity)
     {
         shakeScreenEndTime = Time.time + intensity;
@@ -103,6 +106,7 @@ public class CameraController : CinemachineExtension
 
     }
 
+    /* Contributors: Scott Kauker */
     public void SetActiveFollower(GameObject obj)
     {
         VirtualCamera.Follow = obj.transform;

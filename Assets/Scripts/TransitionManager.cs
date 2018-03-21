@@ -27,6 +27,7 @@ public class TransitionManager : MonoBehaviour {
     private float startDelay = 1.0f;
 
     // Use this for initialization
+    /* Contributors: Scott Kauker */
     void Start ()
     {
         instance = this;
@@ -41,6 +42,7 @@ public class TransitionManager : MonoBehaviour {
     /// Get the current active instance of the transition manager
     /// </summary>
     /// <returns></returns>
+    /* Contributors: Scott Kauker */
     public static TransitionManager Get()
     {
         if (instance == null)
@@ -55,6 +57,7 @@ public class TransitionManager : MonoBehaviour {
     /// Return the percent faded the screen is
     /// </summary>
     /// <returns></returns>
+    /* Contributors: Scott Kauker */
     public float GetFadePercent()
     {
         if (fadeMode == FadeMode.None) return 0;
@@ -67,6 +70,7 @@ public class TransitionManager : MonoBehaviour {
     /// Return if we are currently in the middle of a fade transition
     /// </summary>
     /// <returns></returns>
+    /* Contributors: Scott Kauker */
     public bool IsTransitioning()
     {
         return fadeMode == FadeMode.Out;
@@ -76,6 +80,7 @@ public class TransitionManager : MonoBehaviour {
     /// Perform a screen fade in from black
     /// </summary>
     /// <param name="time">How long to fade in</param>
+    /* Contributors: Scott Kauker */
     public void FadeIn(float time)
     {
         fadeMode = FadeMode.In;
@@ -89,6 +94,7 @@ public class TransitionManager : MonoBehaviour {
     /// Transition to the given scene, fading out the screen
     /// </summary>
     /// <param name="SceneName">The name of the scene to load</param>
+    /* Contributors: Scott Kauker */
     public void TransitionTo(string SceneName, float fadeTime = 1.0f)
     {
         if (fadeMode == FadeMode.Out) { return; }
@@ -100,6 +106,7 @@ public class TransitionManager : MonoBehaviour {
     }
 
     // Update is called once per frame
+    /* Contributors: Scott Kauker */
     void Update ()
     {
         if (fadeMode == FadeMode.Out && GetFadePercent() > 1)
@@ -113,6 +120,7 @@ public class TransitionManager : MonoBehaviour {
         }
     }
 
+    /* Contributors: Scott Kauker */
     private void OnGUI()
     {
         if (fadeMode == FadeMode.None) return;

@@ -75,8 +75,9 @@ public class PlayerPlatformerController : Pawn
 	private bool shieldReady = true;
     private Color ogColor;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    /* Contributors: Scott Kauker */
+    void Start () 
     {
         body = GetComponent<Rigidbody2D>();
         bodyCollider = GetComponent<BoxCollider2D>();
@@ -94,6 +95,7 @@ public class PlayerPlatformerController : Pawn
     /// <summary>
     /// When a player possesses this pawn, we want to set the color of the game object to match their color
     /// </summary>
+    /* Contributors: Scott Kauker */
     public override void OnPossessed()
     {
         NametagCreator nametag = GetComponent<NametagCreator>();
@@ -101,11 +103,13 @@ public class PlayerPlatformerController : Pawn
         nametag.SetColor(Controller.PlayerColor);
     }
 
+    /* Contributors: Scott Kauker */
     public bool IsStunned()
     {
         return stunResetTime > 0;
     }
 
+    /* Contributors: Scott Kauker */
     private void Update()
     {
         if (Controller == null) return;
@@ -146,16 +150,19 @@ public class PlayerPlatformerController : Pawn
 		}
     }
 
+    /* Contributors: Scott Kauker */
     public void Jump()
     {
         wishJump = true;
     }
 
+    /* Contributors: Scott Kauker */
     public void ResetStun()
     {
         stunResetTime = 0;
     }
 
+    /* Contributors: Scott Kauker */
     public void ThrowBack(float hitScale)
     {
         bool onGround = IsOnGround();
@@ -181,7 +188,8 @@ public class PlayerPlatformerController : Pawn
         }
     }
 
-	public void Stun(float hitTime)
+    /* Contributors: Scott Kauker */
+    public void Stun(float hitTime)
 	{
         //Activate stun mode, delay by hitTime
         stunResetTime = hitTime;
@@ -194,6 +202,7 @@ public class PlayerPlatformerController : Pawn
 		SoundManager.instance.PlaySingle (stunnedSound);
 	}
 
+    /* Contributors: Scott Kauker */
     private bool GroundCast(float horizontalOffset)
     {
         Vector3 bottom = transform.position - transform.up * (bodyCollider.size.y / 2 - bodyCollider.offset.y) * transform.localScale.y;
@@ -204,6 +213,7 @@ public class PlayerPlatformerController : Pawn
         return Physics2D.Linecast(bottom, bottom + transform.up * -0.03f * transform.localScale.y, 1 << 9);
     }
 
+    /* Contributors: Scott Kauker */
     public bool IsOnGround()
     {
         float offset = (bodyCollider.size.x / 2) * transform.localScale.x;
@@ -211,6 +221,7 @@ public class PlayerPlatformerController : Pawn
     }
 
     // Update is called once per frame
+    /* Contributors: Scott Kauker */
     void FixedUpdate () {
         if (Controller == null) { return; }
         float horiz = Controller.GetAxisRaw("Horizontal");
