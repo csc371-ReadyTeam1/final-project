@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/************************/
+/* Author: David Rifkin */
+/************************/
+
 public class orb : MonoBehaviour {
 
 	public static bool onWeapon3 = false;

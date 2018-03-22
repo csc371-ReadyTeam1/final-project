@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/****************************
+ * Author: David Rifkin,
+ * Jin Young Jeong
+ * **************************/
+
 public class TNT : MonoBehaviour {
 
 	private Rigidbody2D rb2d;

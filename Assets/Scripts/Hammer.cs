@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/************************/
+/* Author: David Rifkin */
+/************************/
+
 public class Hammer : MonoBehaviour {
 
 	public float hitScale = 1.0f;

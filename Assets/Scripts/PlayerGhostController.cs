@@ -65,7 +65,7 @@ public class PlayerGhostController : Pawn
 
 
     // Use this for initialization
-    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong */
+    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong, David Rifkin */
     void Start () {
 		gunImage = GameObject.Find ("gunImage");
 		missileImage = GameObject.Find ("missileImage");
@@ -138,7 +138,7 @@ public class PlayerGhostController : Pawn
         altCurPos = altGoalPos;
     }
 
-	/* Contributors: Megan Washburn */
+	/* Contributors: Megan Washburn, David Rifkin */
     private void reloadBullets() {
 		SoundManager.instance.PlaySingle (reloadSound);
 
@@ -193,7 +193,7 @@ public class PlayerGhostController : Pawn
 		bulletIndex = 0;
 	}
 
-    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong */
+    /* Contributors: Scott Kauker, Megan Washburn, Jin Young Jeong, David Rifkin */
     void performMovement()
     {
 		
